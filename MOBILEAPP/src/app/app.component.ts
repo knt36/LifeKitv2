@@ -4,8 +4,6 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { deepLinkConfig } from './app.module';
 import { Vitals } from '../pages/vitals-monitor/vitals';
 
-//import { Menu } from '../pages/menu/menu';
-//import { MenuItem } from '../pages/menu/menu-item';
 
 
 @Component({
@@ -13,7 +11,7 @@ import { Vitals } from '../pages/vitals-monitor/vitals';
 })
 export class MyApp {
   @ViewChild('myNav') nav: NavController;
-  rootPage = Vitals;
+  rootPage:any = Vitals;
   menu: Array<DeepLinkMetadata>;
 
   constructor(platform: Platform, /*private menuService : Menu*/) {

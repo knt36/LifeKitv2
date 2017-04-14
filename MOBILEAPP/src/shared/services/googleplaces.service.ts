@@ -47,7 +47,7 @@ export class GooglePlaces{
             });
           }
         }
-      );
+      ,error=>{console.log(error)});
     });
     return(ob);
   }

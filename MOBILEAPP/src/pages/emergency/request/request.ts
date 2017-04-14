@@ -89,7 +89,6 @@ export class EmergencyRequest {
 
   cancelRequest(){
     this.emergencyUserProc.stopEmergencyProc();
-    this.emergencyUserProc.smsAllEmergencyContactsProc.contactAllCancelEmergency();
     let deviceTriggeredEmergency = this.navParam.get('deviceTriggeredEmergency');
     if(deviceTriggeredEmergency){
       this.navCtrl.popToRoot().then(res=>{

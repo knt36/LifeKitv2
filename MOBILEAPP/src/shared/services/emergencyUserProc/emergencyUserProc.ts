@@ -42,7 +42,10 @@ export class EmergencyUserProc {
     this.flashLightProc.stopFlashing();
     this.vibrateProc.stopVibrate();
     this.beepingProc.stopBeepingProc();
-    this.endEmergencyWithServer();
+    if(this.countDownProc.countingDownTime<=0){
+      this.smsAllEmergencyContactsProc.contactAllCancelEmergency();
+      this.endEmergencyWithServer();
+    }
   }
 
   public endEmergencyWithServer(){

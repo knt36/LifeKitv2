@@ -50,6 +50,8 @@ export class NaloxoneLocator {
               },map);
             }
             });
+        },error=>{
+          console.log(error);
         });
     }
 

@@ -7,7 +7,7 @@ SETTING UP THE MOBILE APP FOR ANDROID:
 Appropriate versions can be found here ---> https://en.wikipedia.org/wiki/Android_version_history
 4) run "bash MAKE.sh"
 5) plug in your phone
-6) confirm its connected with adb devices, your device id should show
+6) confirm its connected with the command "adb devices", your device id should show
 7) to run the app perform "ionic run android"
 
 

@@ -1,5 +1,5 @@
 # LifeKitv2
-# Project Plan
+# Project Plan 
 https://drive.google.com/file/d/0B5PKqeTU-CHIM1NfRVo4aDJHZ2c/view?usp=drivesdk
 
 # SETTING UP THE MOBILE APP FOR ANDROID:

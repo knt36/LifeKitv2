@@ -1,9 +1,8 @@
 # LifeKitv2
-#Project Plan
-Always up to date...
+# Project Plan
 https://drive.google.com/file/d/0B5PKqeTU-CHIM1NfRVo4aDJHZ2c/view?usp=drivesdk
 
-#SETTING UP THE MOBILE APP FOR ANDROID:
+# SETTING UP THE MOBILE APP FOR ANDROID:
 1) Assuming you already have npm....
 2) go to the MOBILEAPP directory
 3) make sure you have Android SDK and JAVA SDK Installed. obtain the Android SDK version that is appropriate for your android phone's version.

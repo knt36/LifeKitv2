@@ -1,8 +1,12 @@
 # LifeKitv2
-# Project Plan 
+# Project Plan:
+Up to date... Always
+
 https://drive.google.com/file/d/0B5PKqeTU-CHIM1NfRVo4aDJHZ2c/view?usp=drivesdk
 
-# SETTING UP THE MOBILE APP FOR ANDROID:
+# Bug Tracker:
+https://lifekit.cci.drexel.edu/bugs
+# Android Set Up:
 1) Assuming you already have npm....
 2) go to the MOBILEAPP directory
 3) make sure you have Android SDK and JAVA SDK Installed. obtain the Android SDK version that is appropriate for your android phone's version.

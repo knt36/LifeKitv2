@@ -1,4 +1,6 @@
-npm install 
+npm install
+npm install ionic -g
+npm install -g cordova
 npm rebuild node-sass
 mkdir www
 ionic state reset

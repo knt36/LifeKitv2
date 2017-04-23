@@ -8,7 +8,7 @@ export class AddFromPhoneEmergencyContact {
 contacts: any;
     constructor(public deviceService: DeviceService) {
       deviceService.getAllPhoneContacts().then(list=>{
-        this.contacts = list;
+        this.contacts = list.sort((c1, c2) => { return c1.displayName > c2.displayName });
       });
     }
 

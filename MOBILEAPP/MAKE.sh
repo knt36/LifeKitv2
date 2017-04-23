@@ -1,5 +1,7 @@
 npm install
 npm install ionic -g
+npm install @ionic-native/core --save
+npm install rxjs
 npm install -g cordova
 npm rebuild node-sass
 mkdir www

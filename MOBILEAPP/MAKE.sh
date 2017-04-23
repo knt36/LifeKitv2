@@ -1,5 +1,6 @@
 npm install 
 npm rebuild node-sass
+mkdir www
 ionic state reset
 ionic platform add android
 ionic platform add ios

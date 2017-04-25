@@ -19,7 +19,6 @@ export class ContactPage {
         temp = temp+ " "+ele.type +": " + ele.value + "\n";
       })
       Dialogs.alert("Name: " + contact.name + "  Number: " + temp);
-      Dialogs.beep(1);
     }
 
 

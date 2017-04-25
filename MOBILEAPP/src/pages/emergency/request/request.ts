@@ -88,14 +88,16 @@ export class EmergencyRequest {
   }
 
   cancelRequest(){
-    this.emergencyUserProc.stopEmergencyProc();
-    let deviceTriggeredEmergency = this.navParam.get('deviceTriggeredEmergency');
-    if(deviceTriggeredEmergency){
-      this.navCtrl.popToRoot().then(res=>{
-        deviceTriggeredEmergency = false;
-      });
-    }else {
-      this.navCtrl.popToRoot();
+    this.emergencyUserProc.stopEmergencyProc().subscribe(res=>{
+      let deviceTriggeredEmergency = this.navParam.get('deviceTriggeredEmergency');
+      if(deviceTriggeredEmergency){
+        this.navCtrl.popToRoot().then(res=>{
+          deviceTriggeredEmergency = false;
+        });
+      }else {
+        this.navCtrl.popToRoot();
       }
+    });
+
   }
 }

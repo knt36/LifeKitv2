@@ -83,6 +83,18 @@ export class EmergencyService {
       return(res.result);}));
   }
 
+  startEmergency2(userName:string, geo:Geoposition):Observable<number>{
+    let path = `/emergency/start?accesstoken=${this.jwtService.getAccessToken()}`;
+    let body = new URLSearchParams();
+    body.set('lat',geo.coords.latitude.valueOf()+"");
+    body.set('lng',geo.coords.longitude.valueOf()+"");
+    body.set('user_nickname', userName);
+    body.set ('address',"");
+    return(this.apiService.post(path,body).map(res=>{
+      this.hostingEmergencyId = res.result;
+      return(res.result);}));
+  }
+
   updateCarrierLocation(lat:number, lng: number): Observable<Emergency> {
     let path = `/update/location?accesstoken=${this.jwtService.getAccessToken()}`;
     let body = new URLSearchParams();

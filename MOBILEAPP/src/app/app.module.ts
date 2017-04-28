@@ -41,6 +41,7 @@ import {UserSettingsService} from "../shared/services/user-settings.service";
 import {SettingsEditAddr} from "../pages/settings/setting-editaddr/setting-editaddr";
 import {Comment} from "../pages/emergency/comment/comment";
 import {TestScreen} from '../pages/TESTING/TestScreen'
+import {TestComponent} from "../pages/TESTING/TestComponent/TestComponent";
 //import { Auth } from '../pages/auth/auth.module';
 
 
@@ -92,6 +93,7 @@ export const menuLinks = [
 
 @NgModule({
     declarations: [
+      TestComponent,
       TestScreen,
       Comment,
       AddNewEmergencyContact,
@@ -127,6 +129,7 @@ export const menuLinks = [
     ],
     bootstrap: [IonicApp],
     entryComponents: [
+      TestComponent,
       TestScreen,
       Comment,
       AddNewEmergencyContact,

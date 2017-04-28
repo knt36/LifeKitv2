@@ -11,14 +11,16 @@ export class FrequencyDeviceFilter {
 
   public shouldProcess(data):boolean {
     if (data.respirPulse > 0) {
+      this.frequencyCounter = 0;
       return(true);
     } else {
       if (this.frequencyCounter >= this.updateFrequency) {
         this.frequencyCounter = 0;
         return(true);
+      }else{
+        this.frequencyCounter++;
+        return(false);
       }
-      this.frequencyCounter++;
-      return(false);
     }
   }
 }

@@ -218,31 +218,33 @@ export class TestScreen{
     this.testFrequencyDeviceFilter.runAllTest();
 
 
-    this.testHealthClassification.addTest('health classification return correct isoverdosing analysis', new Promise((resolve,reject)=>{
+    this.testHealthClassification.addTest('health classification returns correct isoverdosing analysis', new Promise((resolve,reject)=>{
       let healthTest:HealthClassification = new HealthClassification();
-      var lowrate = healthTest.LOWER_THAN_OVERDOSE_RESPIRATORY_RATE;
-      var numBadRate = healthTest.NUM_BAD_RESPIRATORY_READINGS_ALLOWED;
+      let lowrate:number = HealthClassification.LOWER_THAN_OVERDOSE_RESPIRATORY_RATE;
+      let numBadRate:number = HealthClassification.NUM_BAD_RESPIRATORY_READINGS_ALLOWED;
+
+      var i:number;
 
       // should not alert ovderdosing if resp rate is higher than the min rate
-      for(var i = 15; i >= lowrate; i--){
+      for(i = 15; i >=lowrate; i--){
         if(healthTest.isOverdosing(i)){
           reject();
         }
       }
 
       // should not alert overdosing if only one bad respiratory rate appears
-      if(healthTest.isOverdosing(lowrate)){
+      if(healthTest.isOverdosing(lowrate-3)){
         reject();
       }
 
       // reject if not indicate overdosing when having more than 1 bad respiratory rate
-      for(var i = 0; i <= numBadRate; i++){
-        if(!healthTest.isOverdosing(lowrate-3)){
-          reject();
+      for(i = 0; i <= numBadRate; i++){
+        if(healthTest.isOverdosing(lowrate-3)){
+          resolve();
         }
       }
 
-      resolve();
+      reject();
     }));
 
     this.testHealthClassification.runAllTest();

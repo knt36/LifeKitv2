@@ -4,17 +4,18 @@ module.exports = function(config) {
 
         basePath: '.',
 
+        entry: 'test/main.js',
         frameworks: ['jasmine'],
 
         files: [
-            { pattern: 'test/main.js' }
+            { pattern: 'test/main.js', watched: false }
         ],
 
-        // proxied base paths
+        /* proxied base paths
         proxies: {
             // required for component assests fetched by Angular's compiler
             '/app/': '/base/app/'
-        },
+        },*/
 
         port: 9876,
 
@@ -30,7 +31,9 @@ module.exports = function(config) {
         plugins: [
             'karma-jasmine',
             'karma-coverage',
-            'karma-chrome-launcher'
+            'karma-chrome-launcher',
+            'karma-webpack',
+            'karma-sourcemap-loader'
         ],
 
         // Coverage reporter generates the coverage
@@ -39,9 +42,9 @@ module.exports = function(config) {
         // Source files that you wanna generate coverage for.
         // Do not include tests or libraries (Files used by Istanbul)
         preprocessors: {
-            'dist/**/!(*spec).js': ['coverage']
+            'test/main.js': ['webpack']
         },
-
+        webpack: require('./webpack.config')({env: 'test'}),
         coverageReporter: {
             reporters:[
                 {type: 'json', subdir: '.', file: 'coverage-final.json'}

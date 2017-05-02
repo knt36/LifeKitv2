@@ -1,25 +1,28 @@
-import {NgModule, ErrorHandler} from "@angular/core";
-import {IonicApp, IonicModule, IonicErrorHandler, DeepLinkConfig} from "ionic-angular";
-import {MyApp} from "./app.component";
-import {AboutPage} from "../pages/about/about";
-import {ContactPage} from "../pages/contacts/contact";
-//import {Menu} from "../pages/menu/menu";
-import {Dashboard} from "../pages/dashboard/dashboard";
-import {VerificationPage} from "../pages/auth/verification/verification";
-import {SignUpPage} from "../pages/auth/signup/signup";
-import {Devices} from "../pages/devices/devices";
-import {Emergency} from "../pages/emergency/emergency";
-import {Help} from "../pages/help/help";
-import {Carriers} from "../pages/naloxone-carriers/carriers";
-import {Profile} from "../pages/profile/profile";
-import {Settings} from "../pages/settings/settings";
-import {Vitals} from "../pages/vitals-monitor/vitals";
-import {ContactAddPage} from "../pages/contact-add/contact-add";
-import {DevicesEdit} from "../pages/devices-edit/devices-edit";
-import {OpioidTool} from "../pages/opioid-tool/opioid";
-import {SettingsEdit} from "../pages/setting-edit/setting-edit";
-import {OpioidUsers} from "../pages/opioid-users/opioidusers";
-import {CarrierSettingsModel} from "../shared/models/carrier-settings/carrier-settings.model";
+
+import { NgModule, ErrorHandler } from "@angular/core";
+import { IonicApp, IonicModule, IonicErrorHandler, DeepLinkConfig } from "ionic-angular";
+import { IonicStorageModule } from '@ionic/storage';
+
+import { MyApp } from "./app.component";
+import { AboutPage } from "../pages/about/about";
+import { ContactPage } from "../pages/contacts/contact";
+import { Dashboard } from "../pages/dashboard/dashboard";
+import { VerificationPage } from "../pages/auth/verification/verification";
+import { SignUpPage } from "../pages/auth/signup/signup";
+import { Devices } from "../pages/devices/devices";
+import { Emergency } from "../pages/emergency/emergency";
+import { Carriers } from "../pages/naloxone-carriers/carriers";
+import { Settings } from "../pages/settings/settings";
+import { OpioidTool } from "../pages/opioid-tool/opioid";
+import {SettingsEditUser} from "../pages/settings/setting-edituser/setting-edituser";
+import { OpioidUsers } from "../pages/opioid-users/opioidusers";
+import { Home } from "../pages/home/home";
+import { Start } from "../pages/start/start";
+import { NaloxoneLocator } from "../pages/naloxone-locator/naloxone-locator"
+import { Einstruction } from '../pages/emergency/instruction/instruction';
+import {Elocator} from '../pages/emergency/locator/elocator';
+import {EmergencyTimer} from '../pages/emergency/timer/timer';
+import {EmergencyRequest} from '../pages/emergency/request/request';
 
 import {
     ApiService,
@@ -27,61 +30,114 @@ import {
     JwtService,
     DeviceService
 } from "../shared";
-
+import { BluetoothService } from "../shared/services/bluetooth.service";
+import { TypeUser } from "../pages/type-user/typeuser";
+import {AddFromPhoneEmergencyContact} from "../pages/contacts/add-fromphone-emergency-contact/add-fromphone-emergency-contact";
+import {AddNewEmergencyContact} from "../pages/contacts/add-new-emergency-contact/add-new-emergency-contact";
+import {LaunchNavigator, Geolocation} from 'ionic-native';
+import {EmergencyService} from "../shared/services/emergency.service";
+import {EndScreen} from '../pages/emergency/endscreen/endscreen'
+import {GooglePlaces} from "../shared/services/googleplaces.service";
+import {UserSettingsService} from "../shared/services/user-settings.service";
+import {SettingsEditAddr} from "../pages/settings/setting-editaddr/setting-editaddr";
+import {Comment} from "../pages/emergency/comment/comment";
+import {TestScreen} from '../pages/TESTING/TestScreen'
+import {TestComponent} from "../pages/TESTING/TestComponent/TestComponent";
 //import { Auth } from '../pages/auth/auth.module';
 
 
 export const deepLinkConfig: DeepLinkConfig = <DeepLinkConfig>{
     links: [
-        {component: ContactPage, name: "contact", segment: "contact"},
-        {component: AboutPage, name: "about", segment: "about"},
-        {component: VerificationPage, name: "verification", segment: "verification"},
-        {component: SignUpPage, name: "signup", segment: "signup"},
-        {component: Devices, name: "devices", segment: "devices"},
-        {component: Emergency, name: "emergency", segment: "emergency"},
-        {component: Help, name: "help", segment: "help"},
-        {component: Carriers, name: "carriers", segment: "carriers"},
-        {component: Profile, name: "profile", segment: "profile"},
-        {component: Settings, name: "settings", segment: "settings"},
-        {component: Vitals, name: "vitals", segment: "vitals"},
-        {component: ContactAddPage, name: "contactadd", segment: "contactadd"},
-        {component: DevicesEdit, name: "devicesedit", segment: "devicesedit"},
-        {component: OpioidTool, name: "opioidtool", segment: "opioidtool"},
-        {component: SettingsEdit, name: "settingsedit", segment: "settingsedit"},
-        {component: OpioidUsers, name: "opioidusers", segment: "opioidusers"},
-        {component: Dashboard, name: "dashboard", segment: "dashboard"}
-        ]
+      {component:TestScreen, name:"testscreen", segment: "testscreen"},
+      { component: Comment, name: "comment", segment: "comment" },
+      { component: AddFromPhoneEmergencyContact, name: "addfromphoneemergencycontact", segment: "addfromphoneemergencycontact" },
+        { component: AddNewEmergencyContact, name: "addnewemergencycontact", segment: "addnewemergencycontact" },
+        { component: TypeUser, name: "usertype", segment: "usertype" },
+        { component: NaloxoneLocator, name: "naloxonelocator", segment: "naloxonelocator" },
+        { component: Home, name: "home", segment: "home" },
+        { component: VerificationPage, name: "verificationpage", segment: "verificationpage" },
+        { component: SignUpPage, name: "signuppage", segment: "signuppage" },
+        { component: Start, name: "start", segment: "start" },
+        { component: ContactPage, name: "contact", segment: "contact" },
+        { component: AboutPage, name: "about", segment: "about" },
+        { component: VerificationPage, name: "verification", segment: "verification" },
+        { component: SignUpPage, name: "signup", segment: "signup" },
+        { component: Devices, name: "devices", segment: "devices" },
+        { component: Emergency, name: "emergency", segment: "emergency" },
+        { component: Carriers, name: "carriers", segment: "carriers" },
+        { component: Settings, name: "settings", segment: "settings" },
+        { component: OpioidTool, name: "opioidtool", segment: "opioidtool" },
+        { component: OpioidUsers, name: "opioidusers", segment: "opioidusers" },
+        { component: Dashboard, name: "dashboard", segment: "dashboard" },
+        { component: Elocator, name: "elocator", segment: "elocator" },
+        { component: Einstruction, name: "einstruction", segment: "einstruction" },
+        { component: EndScreen, name: "endscreen", segment:"endscreen"},
+        { component: EmergencyTimer, name: "emergencytimer", segment:"emergencytimer"},
+        { component: EmergencyRequest, name: "emergencyrequest", segment: "emergencyrequest"},
+        { component: SettingsEditUser, name: "settingsedituser", segment: "settingsedituser"},
+        { component: SettingsEditAddr, name: "settingseditaddr", segment: "settingseditaddr"},
+
+
+    ]
 };
+//need to add naloxonelocator
+export const menuLinks = [
+  {label:'Emergency Contacts', name:'contact', icon: 'contacts'},
+  {label:'Naloxone Locator', name:'naloxonelocator', icon:'map'},
+  {label:'Manage Devices', name:'devices', icon:'speedometer'},
+  {label:'User Settings', name:'settings', icon:'settings'},
+  {label:'Opioid Quiz', name:'opioidtool', icon: 'paper'},
+  {label:'Help and Information', name:'about', icon: 'information-circle'},
+  {label:'TESTING-DASHBOARD',name:'dashboard', icon:'heart'},
+  {label:'TEST-SCREEN',name:'testscreen',icon:'heart'}
+];
 
 @NgModule({
     declarations: [
+      TestComponent,
+      TestScreen,
+      Comment,
+      AddNewEmergencyContact,
+      AddFromPhoneEmergencyContact,
+        TypeUser,
+        NaloxoneLocator,
+        Start,
         MyApp,
         AboutPage,
         ContactPage,
         VerificationPage,
-        Dashboard,
         SignUpPage,
         Devices,
         Emergency,
-        Help,
         Carriers,
-        Profile,
         Settings,
-        Vitals,
-        SettingsEdit,
         OpioidTool,
-        DevicesEdit,
-        ContactAddPage,
         OpioidUsers,
         Dashboard,
-        CarrierSettingsModel
-        ],
+        Home,
+        Elocator,
+        EndScreen,
+        Einstruction,
+        EmergencyRequest,
+        EmergencyTimer,
+        SettingsEditUser,
+        SettingsEditAddr
+    ],
     imports: [
         //Auth,
-        IonicModule.forRoot(MyApp,{},deepLinkConfig)
+        IonicStorageModule.forRoot(),
+        IonicModule.forRoot(MyApp, {}, deepLinkConfig)
     ],
     bootstrap: [IonicApp],
     entryComponents: [
+      TestComponent,
+      TestScreen,
+      Comment,
+      AddNewEmergencyContact,
+      AddFromPhoneEmergencyContact,
+        TypeUser,
+        NaloxoneLocator,
+        Start,
         MyApp,
         AboutPage,
         ContactPage,
@@ -90,18 +146,31 @@ export const deepLinkConfig: DeepLinkConfig = <DeepLinkConfig>{
         SignUpPage,
         Devices,
         Emergency,
-        Help,
         Carriers,
-        Profile,
         Settings,
-        Vitals,
-        SettingsEdit,
         OpioidTool,
-        DevicesEdit,
-        ContactAddPage,
-        OpioidUsers
+        OpioidUsers,
+        Home,
+        Elocator,
+        Einstruction,
+        EndScreen,
+        EmergencyTimer,
+        EmergencyRequest,
+        SettingsEditUser,
+        SettingsEditAddr
     ],
-    providers: [ {provide: ErrorHandler, useClass: IonicErrorHandler}]
+    providers: [
+        JwtService, ApiService, UserService, { provide: ErrorHandler, useClass: IonicErrorHandler },
+        ApiService,
+        UserService,
+        JwtService,
+        DeviceService,
+        LaunchNavigator,
+        EmergencyService,
+        Geolocation,
+        GooglePlaces,
+        UserSettingsService
+    ]
 })
 export class AppModule {
 

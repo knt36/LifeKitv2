@@ -1,32 +1,42 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title align = "center">Opiod User</ion-title>
-  </ion-navbar>
-</ion-header>
-<ion-content>
-  <ion-card>
+<div class="scroll">
 
-    <ion-card-header>
-      Heart Rate Graph Placeholder
-    </ion-card-header>
+    <div [hidden]="!connected">
+      <ion-card>
+        <ion-card-header text-center >
+          <h1>Breath Rate</h1>
+          <h3 id="respiratoryRate" class="alert-header"></h3>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas id="lineCanvas"></canvas>
+        </ion-card-content>
+      </ion-card>
+      <div align="center">
+        <button color ='danger' ion-button round *ngIf="this.deviceTriggeredEmergency" (click) = 'this.deviceTriggeredEmergency = false'>Device Triggers Off</button>
+        <button color ='secondary' ion-button round *ngIf="!this.deviceTriggeredEmergency" (click) = 'this.deviceTriggeredEmergency = true'>Device Triggers On</button>
+      </div>
 
-    <ion-card-content>
-      <!-- Add card content here! -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </ion-card-content>
+      <div align="center">
+        <button (click) ="open('emergencyrequest')" ion-button round class="emergency-button alert-button">Request Emergency Help</button>
+      </div>
+    </div>
 
-  </ion-card>
-  <ion-card>
 
-    <ion-card-header>
-      respiratory Graph Placeholder
-    </ion-card-header>
 
-    <ion-card-content>
-      <!-- Add card content here! -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </ion-card-content>
+  <div [hidden]="connected" class="card">
+    <div class="item item-text-wrap">
+      <h5>There is no connected device.</h5>
+      <h5>Please connect to a device now.</h5>
+      <br>
+      <br>
+      <button (click) ="open('devices')" ion-button color = "teal"  round outline>Find Device</button>
 
-  </ion-card>
-  <carrier-settings [carrierSetting]="carrierSetting"></carrier-settings>
-</ion-content>
+    <h5 align = "center">Or</h5>
+    <br>
+  <div align="center">
+    <button (click) ="open('emergencyrequest')" ion-button round class="emergency-button alert-button">Request Emergency Help</button>
+  </div>
+  </div>
+  </div>
+
+
+</div>

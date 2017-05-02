@@ -8,6 +8,8 @@ import {Geolocation, BluetoothSerial} from "ionic-native";
 import {GooglePlace} from "../../shared/models/GooglePlace";
 import {BluetoothService} from "../../shared/services/bluetooth.service";
 import {FrequencyDeviceFilter} from "../../shared/services/frequency-device-filter";
+import {HealthClassification} from '../../shared/services/health-classification.service';
+
 @Component({
   templateUrl:'TestScreen.html'
 })
@@ -17,6 +19,7 @@ export class TestScreen{
   public testGooglePlacesService:TestSuite = new TestSuite('Test Google Places Service');
   public testBluetoothService:TestSuite = new TestSuite('Test Bluetooth Service');
   public testFrequencyDeviceFilter:TestSuite = new TestSuite('Test Frequency Device Filter');
+  public testHealthClassification:TestSuite = new TestSuite('Test health classification');
 
   constructor(public googlePlacesService:GooglePlaces, public geo:Geolocation){
     //Add the test you want here with the template for how to make a test in the test class
@@ -213,6 +216,36 @@ export class TestScreen{
 
     }));
     this.testFrequencyDeviceFilter.runAllTest();
+
+
+    this.testHealthClassification.addTest('health classification return correct isoverdosing analysis', new Promise((resolve,reject)=>{
+      let healthTest:HealthClassification = new HealthClassification();
+      var lowrate = healthTest.LOWER_THAN_OVERDOSE_RESPIRATORY_RATE;
+      var numBadRate = healthTest.NUM_BAD_RESPIRATORY_READINGS_ALLOWED;
+
+      // should not alert ovderdosing if resp rate is higher than the min rate
+      for(var i = 15; i >= lowrate; i--){
+        if(healthTest.isOverdosing(i)){
+          reject();
+        }
+      }
+
+      // should not alert overdosing if only one bad respiratory rate appears
+      if(healthTest.isOverdosing(lowrate)){
+        reject();
+      }
+
+      // reject if not indicate overdosing when having more than 1 bad respiratory rate
+      for(var i = 0; i <= numBadRate; i++){
+        if(!healthTest.isOverdosing(lowrate-3)){
+          reject();
+        }
+      }
+
+      resolve();
+    }));
+
+    this.testHealthClassification.runAllTest();
   }
 }
 

@@ -1,5 +1,10 @@
-npm install 
+npm install
+npm install ionic -g
+npm install @ionic-native/core --save
+npm install rxjs
+npm install -g cordova
 npm rebuild node-sass
+mkdir www
 ionic state reset
 ionic platform add android
 ionic platform add ios

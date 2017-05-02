@@ -16,7 +16,7 @@ import {HealthClassification} from "../../shared/services/health-classification.
 
 export class OpioidUsers {
   healthClassification:HealthClassification = new HealthClassification();
-  deviceTriggeredEmergency = false;
+  deviceTriggeredEmergency = true; //Default to true so the first time when the device is connected, it won't automatically call an alert, user will have to switch it to false for it to start detecting if there is an overdose and trigging an alert.
   frequencyDeviceFilter: FrequencyDeviceFilter = new FrequencyDeviceFilter(5);
   bluetoothData = "";
   lineCanvas : any;

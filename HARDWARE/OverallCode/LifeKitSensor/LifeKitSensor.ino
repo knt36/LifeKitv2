@@ -117,7 +117,7 @@ void readAccel(){
 #define NOISE 80
 #define NUM_CUR_READING 3
 #define RESPIRATORY_SIGNAL_STRENGTH 1
-#define RESPIR_TIME_BUFF 10
+#define RESPIR_TIME_BUFF 3
 int slopeStatus = 0;
 float pastReading = 0;
 float printedReading = 0;

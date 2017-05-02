@@ -58,21 +58,6 @@ export class EmergencyUserProc {
     return(this.emergencyService.endEmergency())
   }
 
-<<<<<<< Updated upstream
-  public startEmergencyWithServer(geolocation:Geoposition){
-    let addr: Address;
-    try{
-      this.userSettings = this.userSettingService.loadUserSettings();
-      if(this.userSettings.addresses !=null){
-        addr = this.userSettings.addresses[0];
-        this.emergencyService.startEmergency(this.userSettings.firstName,addr,geolocation);
-      }else{
-        this.emergencyService.startEmergency(this.userSettings.firstName,null,geolocation);
-      }
-      console.log('Successfully sent emergency...')
-    }catch(e){
-      console.log('Server: failed to send emergency.')
-=======
   public startEmergencyWithServer(geolocation:Geoposition):Observable<any>{
     let address: Address = null;
     let firstName: string = "no name";
@@ -85,7 +70,6 @@ export class EmergencyUserProc {
       return(this.emergencyService.startEmergency(firstName,address,geolocation));
     }else{
       return(this.emergencyService.startEmergency2(firstName,geolocation));
->>>>>>> Stashed changes
     }
 
 

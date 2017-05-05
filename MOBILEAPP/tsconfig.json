@@ -8,9 +8,6 @@
       "dom",
       "es2015"
     ],
-    "types": [
-      "jasmine"
-    ],
     "module": "es2015",
     "moduleResolution": "node",
     "sourceMap": true,

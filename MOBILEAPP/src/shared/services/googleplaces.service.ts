@@ -38,18 +38,23 @@ export class GooglePlaces{
           var places:GooglePlace[] = [];
           var array:any[] = res.results;
           var i =0;
-          for(i = 0 ; i<array.length && i <numResults; i++) {
-            this.getGoogleDetailed(array[i].place_id + "").subscribe(res => {
-              places.push(res);
-              if(places.length==numResults){
-                observer.next(places);
-              }
-            });
-          }
+          this.getGoogleDetailedHelper(i,places,array,numResults,observer);
         }
       ,error=>{console.log(error)});
     });
     return(ob);
+  }
+
+  public getGoogleDetailedHelper(i,places, array,numResults,observer){
+    this.getGoogleDetailed(array[i].place_id + "").subscribe(res => {
+      places.push(res);
+      if(places.length==numResults){
+        observer.next(places);
+      }else{
+        i++;
+        this.getGoogleDetailedHelper(i,places,array,numResults,observer);
+      }
+    });
   }
 
   public getGoogleDetailed(placeId:string):Observable<GooglePlace>{

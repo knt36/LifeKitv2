@@ -41,7 +41,9 @@ import {UserSettingsService} from "../shared/services/user-settings.service";
 import {SettingsEditAddr} from "../pages/settings/setting-editaddr/setting-editaddr";
 import {Comment} from "../pages/emergency/comment/comment";
 import {TestScreen} from '../pages/TESTING/TestScreen'
-import {TestComponent} from "../pages/TESTING/TestComponent/TestComponent";
+import {TestComponent} from "../shared/components/TestComponent/TestComponent";
+import {GoogleMaps} from "@ionic-native/google-maps";
+import {NaloxoneMap} from "../shared/components/MapComponents/NaloxoneMapComponent/naloxone-map";
 //import { Auth } from '../pages/auth/auth.module';
 
 
@@ -93,6 +95,7 @@ export const menuLinks = [
 
 @NgModule({
     declarations: [
+      NaloxoneMap,
       TestComponent,
       TestScreen,
       Comment,
@@ -129,6 +132,7 @@ export const menuLinks = [
     ],
     bootstrap: [IonicApp],
     entryComponents: [
+      NaloxoneMap,
       TestComponent,
       TestScreen,
       Comment,
@@ -168,7 +172,8 @@ export const menuLinks = [
         EmergencyService,
         Geolocation,
         GooglePlaces,
-        UserSettingsService
+        UserSettingsService,
+        GoogleMaps
     ]
 })
 export class AppModule {

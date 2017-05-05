@@ -1,5 +1,4 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import { Platform } from "ionic-angular";
 import { DeviceService } from "../../shared";
 import { Geoposition, Geolocation } from "ionic-native";
 import { SimpleMarker } from "../../shared/models";
@@ -12,7 +11,6 @@ import {
   MarkerOptions,
   Marker
 } from '@ionic-native/google-maps';
-import {GooglePlaces} from "../../../services/googleplaces.service";
 import {EmergencyService} from "../../../services/emergency.service";
 
 @Component({
@@ -56,7 +54,6 @@ export class RespondersMap {
         // move the map's camera to position
         map.moveCamera(position);
 
-        this.es.getEmergencyStatus()
 
       });
     });

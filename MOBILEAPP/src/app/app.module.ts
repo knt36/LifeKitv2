@@ -44,6 +44,7 @@ import {TestScreen} from '../pages/TESTING/TestScreen'
 import {TestComponent} from "../shared/components/TestComponent/TestComponent";
 import {GoogleMaps} from "@ionic-native/google-maps";
 import {NaloxoneMap} from "../shared/components/MapComponents/NaloxoneMapComponent/naloxone-map";
+import {RespondersMap} from "../shared/components/MapComponents/RespondersMapComponent/responders-map";
 //import { Auth } from '../pages/auth/auth.module';
 
 
@@ -95,6 +96,7 @@ export const menuLinks = [
 
 @NgModule({
     declarations: [
+      RespondersMap,
       NaloxoneMap,
       TestComponent,
       TestScreen,
@@ -132,6 +134,7 @@ export const menuLinks = [
     ],
     bootstrap: [IonicApp],
     entryComponents: [
+      RespondersMap,
       NaloxoneMap,
       TestComponent,
       TestScreen,

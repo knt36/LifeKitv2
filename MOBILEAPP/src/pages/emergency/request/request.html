@@ -8,5 +8,5 @@
   <button (click) = 'cancelRequest()' ion-button large color ="default" round outline>Cancel</button>
 </ion-header>
 <ion-content padding class = "bgColor">
-    <Responders-Map></Responders-Map>
+    <Responders-Map [emergencyId]="this.emergencyUserProc.emergencyService.hostingEmergencyId"></Responders-Map>
 </ion-content>

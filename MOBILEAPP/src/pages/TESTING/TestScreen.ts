@@ -2,7 +2,7 @@
  * Created by roy_f on 4/26/2017.
  */
 import {Component} from "@angular/core";
-import {TestSuite} from "./Test";
+import {TestSuite} from "../../shared/components/TestComponent/Test";
 import {GooglePlaces} from "../../shared/services/googleplaces.service";
 import {Geolocation, BluetoothSerial} from "ionic-native";
 import {GooglePlace} from "../../shared/models/GooglePlace";

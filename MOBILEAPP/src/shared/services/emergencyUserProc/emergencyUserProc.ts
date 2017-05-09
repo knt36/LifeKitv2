@@ -26,8 +26,8 @@ export class EmergencyUserProc {
 }
   public startEmergencyProc(){
     //this.flashLightProc.startFlashing();
-    this.vibrateProc.startVibrate();
-    this.beepingProc.startBeepingProc();
+    //this.vibrateProc.startVibrate();
+    //this.beepingProc.startBeepingProc();
     this.countDownProc.startTimerTillEnd().then(()=>{
       console.log('count down reached!');
       Geolocation.getCurrentPosition().then(geo=>{

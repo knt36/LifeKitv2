@@ -2,7 +2,7 @@
  * Created by roy_f on 4/26/2017.
  */
 import {Component, Input} from "@angular/core";
-import {TestSuite} from "../Test";
+import {TestSuite} from "./Test";
 @Component({
   templateUrl:'TestComponent.html',
   selector:'TestComponent'

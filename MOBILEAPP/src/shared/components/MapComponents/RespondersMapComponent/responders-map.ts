@@ -25,11 +25,12 @@ export class RespondersMap {
   public obUpdateResponders = null;
   public responderMarkers = [];
   constructor(public app: App,public es:EmergencyService,public geo: Geolocation, public googleMaps: GoogleMaps) {
-    app.viewWillUnload.subscribe(res=>{
-      if(this.obUpdateResponders){
-        this.obUpdateResponders.unsubscribe();
-      }
-    });
+
+  }
+  ngOnDestroy(){
+    if(this.obUpdateResponders){
+      this.obUpdateResponders.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {

@@ -18,8 +18,9 @@ export class EmergencyRequest {
     constructor(public navParam: NavParams, userSettingService: UserSettingsService, emergencyService:EmergencyService, geolocation: Geolocation, public googlePlaces: GooglePlaces, public deviceService: DeviceService, public er: EmergencyService, public userSettingsService: UserSettingsService, public navCtrl:NavController, public app: App) {
       this.emergencyUserProc = new EmergencyUserProc(deviceService,userSettingService,emergencyService);
         this.emergencyUserProc.startEmergencyProc();
-      app.viewWillUnload.subscribe(res=>{
-        this.emergencyUserProc.stopEmergencyProc();
+
+      app.viewWillLeave.subscribe(res=>{
+        //this.cancelRequest();
       });
     }
 

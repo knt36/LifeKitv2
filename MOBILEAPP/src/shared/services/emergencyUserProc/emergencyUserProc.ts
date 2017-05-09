@@ -19,8 +19,8 @@ export class EmergencyUserProc {
   public smsAllEmergencyContactsProc: SMSAllEmergencyContactsProc = new SMSAllEmergencyContactsProc(this.userSettingService,this.deviceService);
   public userSettings:UserSettings;
 
-  public emergencyOngoing:boolean = false;
 
+  public emergencyOngoing:boolean = false;
   constructor(public deviceService:DeviceService,public userSettingService: UserSettingsService, public emergencyService:EmergencyService){
   this.userSettings = userSettingService.loadUserSettings();
 }
@@ -45,10 +45,11 @@ export class EmergencyUserProc {
   }
 
   public stopEmergencyProc():Observable<any>{
+    this.countDownProc.stopTimerBeforeEnd();
     this.flashLightProc.stopFlashing();
     this.vibrateProc.stopVibrate();
     this.beepingProc.stopBeepingProc();
-    if(this.countDownProc.countingDownTime<=0){
+    if(this.smsAllEmergencyContactsProc.isContacted){
       this.smsAllEmergencyContactsProc.contactAllCancelEmergency();
     }
     return(this.endEmergencyWithServer());
@@ -58,7 +59,7 @@ export class EmergencyUserProc {
     return(this.emergencyService.endEmergency())
   }
 
-  public startEmergencyWithServer(geolocation:Geoposition):Observable<any>{
+    public startEmergencyWithServer(geolocation:Geoposition):Observable<any>{
     let address: Address = null;
     let firstName: string = "no name";
     if(this.userSettings&&this.userSettings.firstName){

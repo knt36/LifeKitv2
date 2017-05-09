@@ -8,6 +8,7 @@ import {Geoposition, SMS} from "ionic-native";
  */
 export class SMSAllEmergencyContactsProc{
   public userSettings:UserSettings;
+  public isContacted:boolean = false;
 
   constructor(userSettingsService:UserSettingsService,public deviceService:DeviceService){
     this.userSettings = userSettingsService.loadUserSettings();
@@ -36,7 +37,9 @@ export class SMSAllEmergencyContactsProc{
           console.log(phone);
           if(phone){
             var googleMapUrl = "http://maps.google.com/maps?q=loc:"+geo.coords.latitude+","+geo.coords.longitude;
-            SMS.send(phone.value, this.userSettings.firstName + ' Is currently having an overdose. Navigate to: ' + googleMapUrl );
+            SMS.send(phone.value, this.userSettings.firstName + ' Is currently having an overdose. Navigate to: ' + googleMapUrl ).then(res=>{
+              this.isContacted = true;
+            });
           }
         });
       });

@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
  */
 export class CountDownProc{
   //Time limit in seconds
-  private static TIME_LIMIT = 2;
+  private static TIME_LIMIT = 10;
   private timer:Observable<any> = Observable.timer(0,1000);
   private timerOb:any;
   public countingDownTime:number = CountDownProc.TIME_LIMIT;

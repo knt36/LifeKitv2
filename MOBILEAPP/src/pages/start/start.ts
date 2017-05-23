@@ -13,7 +13,7 @@ export class Start {
     //window.localStorage.clear();
     setTimeout(() => {
       this.goNextPageAuth();
-    }, 3000);
+    }, 1000);
   }
 
   goNextPageAuth(){

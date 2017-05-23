@@ -40,12 +40,17 @@ import {GooglePlaces} from "../shared/services/googleplaces.service";
 import {UserSettingsService} from "../shared/services/user-settings.service";
 import {SettingsEditAddr} from "../pages/settings/setting-editaddr/setting-editaddr";
 import {Comment} from "../pages/emergency/comment/comment";
-
+import {TestScreen} from '../pages/TESTING/TestScreen'
+import {TestComponent} from "../shared/components/TestComponent/TestComponent";
+import {GoogleMaps} from "@ionic-native/google-maps";
+import {NaloxoneMap} from "../shared/components/MapComponents/NaloxoneMapComponent/naloxone-map";
+import {RespondersMap} from "../shared/components/MapComponents/RespondersMapComponent/responders-map";
 //import { Auth } from '../pages/auth/auth.module';
 
 
 export const deepLinkConfig: DeepLinkConfig = <DeepLinkConfig>{
     links: [
+      {component:TestScreen, name:"testscreen", segment: "testscreen"},
       { component: Comment, name: "comment", segment: "comment" },
       { component: AddFromPhoneEmergencyContact, name: "addfromphoneemergencycontact", segment: "addfromphoneemergencycontact" },
         { component: AddNewEmergencyContact, name: "addnewemergencycontact", segment: "addnewemergencycontact" },
@@ -85,11 +90,16 @@ export const menuLinks = [
   {label:'User Settings', name:'settings', icon:'settings'},
   {label:'Opioid Quiz', name:'opioidtool', icon: 'paper'},
   {label:'Help and Information', name:'about', icon: 'information-circle'},
-  {label:'TESTING-DASHBOARD',name:'dashboard', icon:'heart'}
+  {label:'TESTING-DASHBOARD',name:'dashboard', icon:'heart'},
+  {label:'TEST-SCREEN',name:'testscreen',icon:'heart'}
 ];
 
 @NgModule({
     declarations: [
+      RespondersMap,
+      NaloxoneMap,
+      TestComponent,
+      TestScreen,
       Comment,
       AddNewEmergencyContact,
       AddFromPhoneEmergencyContact,
@@ -124,6 +134,10 @@ export const menuLinks = [
     ],
     bootstrap: [IonicApp],
     entryComponents: [
+      RespondersMap,
+      NaloxoneMap,
+      TestComponent,
+      TestScreen,
       Comment,
       AddNewEmergencyContact,
       AddFromPhoneEmergencyContact,
@@ -161,7 +175,8 @@ export const menuLinks = [
         EmergencyService,
         Geolocation,
         GooglePlaces,
-        UserSettingsService
+        UserSettingsService,
+        GoogleMaps
     ]
 })
 export class AppModule {

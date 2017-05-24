@@ -111,7 +111,11 @@ export class EmergencyService {
       array.forEach(function(res:Emergency){
         var temp:Emergency;
         temp = res;
-        temp.emergency_address = JSON.parse(res.emergency_address + "");
+        try{
+          temp.emergency_address = JSON.parse(res.emergency_address + "");
+        }catch(e){
+          temp.emergency_address = null;
+        }
         emergencies.push(res);
       });
       return(emergencies);

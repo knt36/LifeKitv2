@@ -5,13 +5,13 @@
         <ion-row>
           <ion-col col-6>
             <div>
-              <h6 class="title">{{emergency.user_nickname}}</h6>
-              <p>{{emergency.emergency_address.houseNumber}} {{emergency.emergency_address.street}}<br>
-                {{emergency.emergency_address.city}} {{emergency.emergency_address.state}} {{emergency.emergency_address.zipCode}}</p>
+              <h6 class="title">{{emergency?.user_nickname}}</h6>
+              <p>{{emergency?.emergency_address?.houseNumber}} {{emergency?.emergency_address?.street}}<br>
+                {{emergency?.emergency_address?.city}} {{emergency?.emergency_address?.state}} {{emergency?.emergency_address?.zipCode}}</p>
             </div>
           </ion-col>
           <ion-col col-6>
-            <button ion-button clear item-right large class="button-style" (click)="openMap(emergency.emergency_lat+','+emergency.emergency_lng)"><ion-icon name="navigate"></ion-icon></button>
+            <button ion-button clear item-right large class="button-style" (click)="openMap(emergency?.emergency_lat+','+emergency?.emergency_lng)"><ion-icon name="navigate"></ion-icon></button>
           </ion-col>
         </ion-row>
       </ion-item>

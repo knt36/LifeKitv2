@@ -114,6 +114,7 @@ export class EmergencyService {
         try{
           temp.emergency_address = JSON.parse(res.emergency_address + "");
         }catch(e){
+
           temp.emergency_address = null;
         }
         emergencies.push(res);

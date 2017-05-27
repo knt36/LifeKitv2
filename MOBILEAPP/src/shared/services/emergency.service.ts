@@ -49,7 +49,7 @@ export class EmergencyService {
 
   //untested khoi
   getEmergencyStatus(emergencyId):Observable<Array<ResponderCordinate>>{
-    let path = `/emergency/status?accesstoken=${this.jwtService.getAccessToken()}&${emergencyId}`;
+    let path = `/emergency/status?accesstoken=${this.jwtService.getAccessToken()}&emergencyid=${emergencyId}`;
     return(this.apiService.get(path).map(res=>{
       var responderList:Array<ResponderCordinate> = new Array<ResponderCordinate>();
       responderList = res.result;

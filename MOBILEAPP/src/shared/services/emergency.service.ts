@@ -163,8 +163,9 @@ export class EmergencyService {
         var temp:Emergency;
         temp = res;
         try{
+          res.date = new Date(res.started_at);
           temp.emergency_address = JSON.parse(res.emergency_address + "");
-        }catch(e){
+        }catch(e) {
 
           temp.emergency_address = null;
         }

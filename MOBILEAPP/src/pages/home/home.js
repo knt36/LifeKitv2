@@ -6,26 +6,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var ionic_angular_1 = require('ionic-angular');
-var TypeUser = (function () {
-    function TypeUser(ref, emergencyService, geo) {
+var app_module_1 = require("../../app/app.module");
+var typeuser_1 = require("../type-user/typeuser");
+//need to add naloxonelocator
+var Home = (function () {
+    function Home(app, platform, ref) {
+        this.app = app;
+        this.platform = platform;
         this.ref = ref;
-        this.emergencyService = emergencyService;
-        this.geo = geo;
-        this.onDutyToggled = false;
+        this.menu = app_module_1.menuLinks;
+        this.rootPage = typeuser_1.TypeUser;
+        app._setDisableScroll(true);
     }
-    TypeUser.prototype.notifyOnDuty = function () {
-        this.ref.detectChanges();
-        console.log(this.onDutyToggled);
+    Home.prototype.open = function (url) {
+        this.navCtrl.push(url);
     };
     __decorate([
-        core_1.ViewChild(ionic_angular_1.Segment)
-    ], TypeUser.prototype, "segment", void 0);
-    TypeUser = __decorate([
+        core_1.ViewChild('myNav')
+    ], Home.prototype, "navCtrl", void 0);
+    Home = __decorate([
         core_1.Component({
-            templateUrl: 'typeuser.html'
+            templateUrl: 'home.html'
         })
-    ], TypeUser);
-    return TypeUser;
+    ], Home);
+    return Home;
 }());
-exports.TypeUser = TypeUser;
+exports.Home = Home;

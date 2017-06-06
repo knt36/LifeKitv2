@@ -7,7 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var Einstruction = (function () {
-    function Einstruction(navCtrl) {
+    function Einstruction(emergencyService, navCtrl) {
+        var _this = this;
+        this.emergencyService = emergencyService;
         this.navCtrl = navCtrl;
         this.etimer = 123;
         // toDo: get patient info from server
@@ -15,9 +17,22 @@ var Einstruction = (function () {
             name: 'Micheal Lexon',
             info: 'Non Alergy'
         };
+        var watchEmergency = this.emergencyService.selectedEmergencyOngoing.subscribe(function (res) {
+            if (!res) {
+                //emergency is not ongoing anymore
+                watchEmergency.unsubscribe();
+                alert("The emergency ended...");
+                _this.emergencyService.cancelAssistEmergency(emergencyService.selectedEmergency.emergencyid).subscribe(function (res) {
+                    console.log(res);
+                }, function (error) {
+                    console.log(error);
+                });
+                _this.navCtrl.setRoot('home');
+            }
+        });
     }
     Einstruction.prototype.endEmergency = function () {
-        this.navCtrl.setRoot('endscreen');
+        this.navCtrl.setRoot('EndScreen');
     };
     __decorate([
         core_1.Input()

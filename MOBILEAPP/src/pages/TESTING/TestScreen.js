@@ -9,7 +9,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
  * Created by roy_f on 4/26/2017.
  */
 var core_1 = require("@angular/core");
-var Test_1 = require("./../../shared/components/TestComponent/Test");
+var Test_1 = require("../../shared/components/TestComponent/Test");
 var ionic_native_1 = require("ionic-native");
 var frequency_device_filter_1 = require("../../shared/services/frequency-device-filter");
 var TestScreen = (function () {

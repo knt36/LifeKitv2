@@ -1,10 +1,11 @@
 import {Component, Input} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {Geolocation, Dialogs} from "ionic-native";
+import {Geolocation, Dialogs, SMS} from "ionic-native";
 import {EmergencyService} from "../../shared/services/emergency.service";
 import {Emergency} from "../../shared/models/emergency.model";
 import {ReplaySubject, Observable} from "rxjs";
 import {TypeUser} from "../type-user/typeuser";
+import {JwtService} from "../../shared/services/jwt.service";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class Carriers {
   public pageReportDutyOb:Observable<any>;
   public unsubSendLocation:Array<any> = new Array<any>();
   public unsubPageReport:Array<any> = new Array<any>();
+  public lastNumberEmergrencies = 0;
 
 
   carrierSetting = {
@@ -31,7 +33,7 @@ export class Carriers {
   };
 
 
-  constructor(public em: EmergencyService, public emergencyService:EmergencyService, public navCtrl: NavController) {
+  constructor(public em: EmergencyService, public jwtService: JwtService, public emergencyService:EmergencyService, public navCtrl: NavController) {
 
   }
 
@@ -59,10 +61,20 @@ export class Carriers {
     Geolocation.getCurrentPosition().then(resp=>{
       console.log('reporting for duty');
       this.emergencyService.reportOnDuty(resp.coords.latitude,resp.coords.longitude).subscribe((res:Array<Emergency>)=>{
-        for(let data of res){
-          data.date = new Date(data.started_at);
-        }
-
+        res.forEach(e=>{
+          var isExist = false;
+          this.emergencies.forEach(ePrime=>{
+              if(ePrime.emergencyid ==e.emergencyid){
+                isExist = true;
+              }
+            });
+          if(isExist){
+            //Do nothing
+          }else{
+            //send SMS to notify there is a new emergency
+            SMS.send(this.jwtService.getTelephoneNumber(),"LifeKit Alert!- Emergency Patient Needs Help!");
+          }
+        });
         this.emergencies = res;
         //check if there are new emergencys, if there are, then send a notification to the phone
       });

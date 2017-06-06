@@ -7,7 +7,7 @@ export class JwtService {
   saveTelephoneNumber(phone: string){
     window.localStorage['phone'] = phone;
   }
-  getTelephoneNumber(){
+  public getTelephoneNumber(){
     return(window.localStorage['phone']);
   }
 

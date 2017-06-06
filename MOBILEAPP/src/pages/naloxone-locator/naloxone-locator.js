@@ -6,26 +6,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var ionic_angular_1 = require('ionic-angular');
-var TypeUser = (function () {
-    function TypeUser(ref, emergencyService, geo) {
-        this.ref = ref;
-        this.emergencyService = emergencyService;
-        this.geo = geo;
-        this.onDutyToggled = false;
+var NaloxoneLocator = (function () {
+    function NaloxoneLocator() {
     }
-    TypeUser.prototype.notifyOnDuty = function () {
-        this.ref.detectChanges();
-        console.log(this.onDutyToggled);
-    };
-    __decorate([
-        core_1.ViewChild(ionic_angular_1.Segment)
-    ], TypeUser.prototype, "segment", void 0);
-    TypeUser = __decorate([
+    NaloxoneLocator = __decorate([
         core_1.Component({
-            templateUrl: 'typeuser.html'
+            templateUrl: 'naloxone-locator.html'
         })
-    ], TypeUser);
-    return TypeUser;
+    ], NaloxoneLocator);
+    return NaloxoneLocator;
 }());
-exports.TypeUser = TypeUser;
+exports.NaloxoneLocator = NaloxoneLocator;

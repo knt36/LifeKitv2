@@ -16,12 +16,18 @@ var EndScreen = (function () {
         this.emergencyId = params.get('emergencyId');
     }
     EndScreen.prototype.finish = function () {
-        var _this = this;
         //send the comment
-        var send = {};
+        var _this = this;
         this.er.commentEmergency(this.emergencyId, JSON.stringify(this.emergencyComment)).subscribe(function (res) {
-            alert("Thanks for commenting!");
-            _this.navCtrl.popToRoot();
+            _this.er.cancelAssistEmergency(_this.er.selectedEmergency.emergencyid).subscribe(function (res) {
+                alert("Thanks for commenting!");
+                _this.navCtrl.setRoot("home");
+            });
+        }, function (error) {
+            _this.er.cancelAssistEmergency(_this.er.selectedEmergency.emergencyid).subscribe(function (res) {
+                alert("Thanks for commenting!");
+                _this.navCtrl.setRoot("home");
+            });
         });
     };
     EndScreen.prototype.cancel = function () {

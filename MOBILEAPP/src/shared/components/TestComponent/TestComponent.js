@@ -5,27 +5,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+/**
+ * Created by roy_f on 4/26/2017.
+ */
 var core_1 = require("@angular/core");
-var ionic_angular_1 = require('ionic-angular');
-var TypeUser = (function () {
-    function TypeUser(ref, emergencyService, geo) {
-        this.ref = ref;
-        this.emergencyService = emergencyService;
-        this.geo = geo;
-        this.onDutyToggled = false;
+var TestComponent = (function () {
+    function TestComponent() {
     }
-    TypeUser.prototype.notifyOnDuty = function () {
-        this.ref.detectChanges();
-        console.log(this.onDutyToggled);
-    };
     __decorate([
-        core_1.ViewChild(ionic_angular_1.Segment)
-    ], TypeUser.prototype, "segment", void 0);
-    TypeUser = __decorate([
+        core_1.Input()
+    ], TestComponent.prototype, "testSuite", void 0);
+    TestComponent = __decorate([
         core_1.Component({
-            templateUrl: 'typeuser.html'
+            templateUrl: 'TestComponent.html',
+            selector: 'TestComponent'
         })
-    ], TypeUser);
-    return TypeUser;
+    ], TestComponent);
+    return TestComponent;
 }());
-exports.TypeUser = TypeUser;
+exports.TestComponent = TestComponent;

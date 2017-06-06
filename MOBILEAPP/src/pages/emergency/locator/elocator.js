@@ -28,10 +28,15 @@ var Elocator = (function () {
             phone: '+1 215-232-5435'
         };
         this.emergency = params.get('Emergency');
+        emergencyService.awaitCloseToPatient().then(function (res) {
+            //you are now close to the patient NOW WHAT NIGGAR
+            console.log("You are close....");
+            _this.stageClosedToPatient();
+        });
         var watchEmergency = this.emergencyService.selectedEmergencyOngoing.subscribe(function (res) {
             if (!res) {
                 //emergency is not ongoing anymore
-                watchEmergencey.unsubscribe();
+                watchEmergency.unsubscribe();
                 alert("The emergency ended...");
                 _this.emergencyService.cancelAssistEmergency(_this.emergency.emergencyid).subscribe(function (res) {
                     console.log(res);

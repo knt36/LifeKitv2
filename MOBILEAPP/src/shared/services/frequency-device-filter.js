@@ -10,6 +10,7 @@ var FrequencyDeviceFilter = (function () {
     }
     FrequencyDeviceFilter.prototype.shouldProcess = function (data) {
         if (data.respirPulse > 0) {
+            this.frequencyCounter = 0;
             return (true);
         }
         else {
@@ -17,8 +18,10 @@ var FrequencyDeviceFilter = (function () {
                 this.frequencyCounter = 0;
                 return (true);
             }
-            this.frequencyCounter++;
-            return (false);
+            else {
+                this.frequencyCounter++;
+                return (false);
+            }
         }
     };
     return FrequencyDeviceFilter;

@@ -6,26 +6,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var ionic_angular_1 = require('ionic-angular');
-var TypeUser = (function () {
-    function TypeUser(ref, emergencyService, geo) {
-        this.ref = ref;
-        this.emergencyService = emergencyService;
-        this.geo = geo;
-        this.onDutyToggled = false;
+var user_setting_model_1 = require("../../../shared/models/user-setting.model");
+var SettingsEditAddr = (function () {
+    function SettingsEditAddr(param, viewCtrl) {
+        this.param = param;
+        this.viewCtrl = viewCtrl;
+        this.address = new user_setting_model_1.Address();
     }
-    TypeUser.prototype.notifyOnDuty = function () {
-        this.ref.detectChanges();
-        console.log(this.onDutyToggled);
+    SettingsEditAddr.prototype.addThenDismiss = function () {
+        this.viewCtrl.dismiss(this.address);
     };
-    __decorate([
-        core_1.ViewChild(ionic_angular_1.Segment)
-    ], TypeUser.prototype, "segment", void 0);
-    TypeUser = __decorate([
+    SettingsEditAddr.prototype.dismiss = function () {
+        this.viewCtrl.dismiss();
+    };
+    SettingsEditAddr = __decorate([
         core_1.Component({
-            templateUrl: 'typeuser.html'
+            templateUrl: 'setting-editaddr.html'
         })
-    ], TypeUser);
-    return TypeUser;
+    ], SettingsEditAddr);
+    return SettingsEditAddr;
 }());
-exports.TypeUser = TypeUser;
+exports.SettingsEditAddr = SettingsEditAddr;

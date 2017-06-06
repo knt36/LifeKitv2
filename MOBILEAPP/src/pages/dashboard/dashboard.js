@@ -6,26 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var ionic_angular_1 = require('ionic-angular');
-var TypeUser = (function () {
-    function TypeUser(ref, emergencyService, geo) {
-        this.ref = ref;
-        this.emergencyService = emergencyService;
-        this.geo = geo;
-        this.onDutyToggled = false;
+var app_module_1 = require("../../app/app.module");
+var Dashboard = (function () {
+    function Dashboard(navCtrl) {
+        this.navCtrl = navCtrl;
+        this.allPages = app_module_1.deepLinkConfig.links;
     }
-    TypeUser.prototype.notifyOnDuty = function () {
-        this.ref.detectChanges();
-        console.log(this.onDutyToggled);
+    Dashboard.prototype.open = function (url) {
+        this.navCtrl.push(url);
     };
-    __decorate([
-        core_1.ViewChild(ionic_angular_1.Segment)
-    ], TypeUser.prototype, "segment", void 0);
-    TypeUser = __decorate([
+    Dashboard = __decorate([
         core_1.Component({
-            templateUrl: 'typeuser.html'
+            templateUrl: 'dashboard.html'
         })
-    ], TypeUser);
-    return TypeUser;
+    ], Dashboard);
+    return Dashboard;
 }());
-exports.TypeUser = TypeUser;
+exports.Dashboard = Dashboard;

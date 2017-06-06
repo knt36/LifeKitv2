@@ -10,6 +10,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var Rx_1 = require('rxjs/Rx');
 var ReplaySubject_1 = require('rxjs/ReplaySubject');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
@@ -20,6 +21,7 @@ var EmergencyService = (function () {
         this.jwtService = jwtService;
         this.selectedEmergency = null;
         this.selectedEmergencyOngoing = new ReplaySubject_1.ReplaySubject(1);
+        this.selectedEmergencyUpdate = new ReplaySubject_1.ReplaySubject(1);
     }
     //Assistance
     EmergencyService.prototype.isAssisting = function () {
@@ -33,8 +35,8 @@ var EmergencyService = (function () {
     EmergencyService.prototype.commentEmergency = function (emergencyId, comment) {
         var path = "/assist/comment?accesstoken=" + this.jwtService.getAccessToken();
         var body = new http_1.URLSearchParams();
-        body.append('emergencyid', emergencyId);
-        body.append('comment', comment);
+        body.set('emergencyid', emergencyId);
+        body.set('comment', comment);
         return (this.apiService.put(path, body).map(function (res) {
             return (res);
         }, function (error) {
@@ -94,6 +96,11 @@ var EmergencyService = (function () {
                 alert(error);
             }));
         }
+        else {
+            return (new Rx_1.Observable(function (ob) {
+                ob.next(false);
+            }));
+        }
     };
     EmergencyService.prototype.startEmergency = function (userName, address, geo) {
         var _this = this;
@@ -146,6 +153,7 @@ var EmergencyService = (function () {
                 var temp;
                 temp = res;
                 try {
+                    res.date = new Date(res.started_at);
                     temp.emergency_address = JSON.parse(res.emergency_address + "");
                 }
                 catch (e) {
@@ -155,21 +163,49 @@ var EmergencyService = (function () {
             });
             if (_this.isAssisting()) {
                 var isOngoing = false;
+                var theUpdatedEmergency = null;
                 emergencies.forEach(function (e) {
                     if (e.emergencyid == _this.selectedEmergency.emergencyid) {
                         //the emergency is still ongoing. otherwise it is not ongoing...
                         isOngoing = true;
+                        theUpdatedEmergency = e;
                     }
                 });
                 if (!isOngoing) {
                     //notifies that it is no longer ongoing
                     _this.selectedEmergencyOngoing.next(false);
                 }
+                else {
+                    //if it is ongoing, then update the locatoin to see if the preson got close to the perosn
+                    if (theUpdatedEmergency) {
+                        console.log(theUpdatedEmergency);
+                        _this.selectedEmergencyUpdate.next(theUpdatedEmergency);
+                    }
+                }
             }
             return (emergencies);
         }, function (error) {
             alert(error);
         });
+    };
+    EmergencyService.prototype.awaitCloseToPatient = function () {
+        var _this = this;
+        return (new Promise(function (resolve, reject) {
+            var unsubscriber = _this.selectedEmergencyUpdate.subscribe(function (e) {
+                var DISTANCE_CLOSE = 20;
+                if (e.distance <= DISTANCE_CLOSE) {
+                    if (unsubscriber) {
+                        unsubscriber.unsubscribe();
+                    }
+                    resolve();
+                }
+            }, function (error) {
+                if (unsubscriber) {
+                    unsubscriber.unsubscribe();
+                }
+                reject();
+            });
+        }));
     };
     EmergencyService.ACCEPT_EMERGENCY = 1;
     EmergencyService = __decorate([

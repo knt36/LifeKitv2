@@ -55,7 +55,7 @@ export class OpioidUsers {
           //Trigger overdose page.
             this.deviceTriggeredEmergency = true;
             console.log('device emergency triggered is true');
-            this.navCtrl.push('emergencyrequest',{
+            this.navCtrl.setRoot('emergencyrequest',{
               'deviceTriggeredEmergency': this.deviceTriggeredEmergency
             });
           }
@@ -66,7 +66,7 @@ export class OpioidUsers {
 
 
   open(url){
-    this.navCtrl.push(url);
+    this.navCtrl.setRoot(url);
   }
 
   ngAfterViewInit() {

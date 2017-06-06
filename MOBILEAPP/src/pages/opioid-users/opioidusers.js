@@ -43,7 +43,7 @@ var OpioidUsers = (function () {
                         //Trigger overdose page.
                         _this.deviceTriggeredEmergency = true;
                         console.log('device emergency triggered is true');
-                        _this.navCtrl.push('emergencyrequest', {
+                        _this.navCtrl.setRoot('emergencyrequest', {
                             'deviceTriggeredEmergency': _this.deviceTriggeredEmergency
                         });
                     }
@@ -52,7 +52,7 @@ var OpioidUsers = (function () {
         });
     };
     OpioidUsers.prototype.open = function (url) {
-        this.navCtrl.push(url);
+        this.navCtrl.setRoot(url);
     };
     OpioidUsers.prototype.ngAfterViewInit = function () {
         this.lineCanvas = document.getElementById('lineCanvas');

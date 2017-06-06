@@ -27,12 +27,12 @@ var EmergencyRequest = (function () {
         this.emergencyUserProc.stopEmergencyProc().subscribe(function (res) {
             var deviceTriggeredEmergency = _this.navParam.get('deviceTriggeredEmergency');
             if (deviceTriggeredEmergency) {
-                _this.navCtrl.popToRoot().then(function (res) {
+                _this.navCtrl.setRoot('home').then(function (res) {
                     deviceTriggeredEmergency = false;
                 });
             }
             else {
-                _this.navCtrl.popToRoot();
+                _this.navCtrl.setRoot('home');
             }
         });
     };

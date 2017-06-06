@@ -28,11 +28,11 @@ export class EmergencyRequest {
     this.emergencyUserProc.stopEmergencyProc().subscribe(res=>{
       let deviceTriggeredEmergency = this.navParam.get('deviceTriggeredEmergency');
       if(deviceTriggeredEmergency){
-        this.navCtrl.popToRoot().then(res=>{
+        this.navCtrl.setRoot('home').then(res=>{
           deviceTriggeredEmergency = false;
         });
       }else {
-        this.navCtrl.popToRoot();
+        this.navCtrl.setRoot('home');
       }
     });
 

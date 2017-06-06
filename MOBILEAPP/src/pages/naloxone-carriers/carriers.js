@@ -10,8 +10,9 @@ var ionic_native_1 = require("ionic-native");
 var emergency_service_1 = require("../../shared/services/emergency.service");
 var rxjs_1 = require("rxjs");
 var Carriers = (function () {
-    function Carriers(em, emergencyService, navCtrl) {
+    function Carriers(em, jwtService, emergencyService, navCtrl) {
         this.em = em;
+        this.jwtService = jwtService;
         this.emergencyService = emergencyService;
         this.navCtrl = navCtrl;
         this.emergencies = new Array();
@@ -59,8 +60,7 @@ var Carriers = (function () {
                     }
                     else {
                         //send SMS to notify there is a new emergency
-                        _this.sms.
-                        ;
+                        ionic_native_1.SMS.send(_this.jwtService.getTelephoneNumber(), "LifeKit Alert!- Emergency Patient Needs Help!");
                     }
                 });
                 _this.emergencies = res;

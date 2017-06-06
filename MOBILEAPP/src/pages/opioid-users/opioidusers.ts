@@ -15,6 +15,7 @@ import {HealthClassification} from "../../shared/services/health-classification.
 })
 
 export class OpioidUsers {
+  displayRespir = -1;
   healthClassification:HealthClassification = new HealthClassification();
   deviceTriggeredEmergency = true; //Default to true so the first time when the device is connected, it won't automatically call an alert, user will have to switch it to false for it to start detecting if there is an overdose and trigging an alert.
   frequencyDeviceFilter: FrequencyDeviceFilter = new FrequencyDeviceFilter(5);
@@ -43,21 +44,19 @@ export class OpioidUsers {
   }
 
   subscribeBluetoothService(){
-    BluetoothService.bluetoothData.subscribe(data=> {
+    var  un = BluetoothService.bluetoothData.subscribe(data=> {
       this.connected = true;
-      console.log('data recieved');
-      console.log(data);
+      //console.log('data recieved');
+      //console.log(data);
       if(this.frequencyDeviceFilter.shouldProcess(data)){
-        console.log('data processed...');
-        this.updateChart(data)
+        //console.log('data processed...');
         if(!this.deviceTriggeredEmergency){
-          if(this.healthClassification.isOverdosing(data.respirRate)){
+          this.updateChart(data);
+          if(this.healthClassification.isOverdosingAccel(data.respirRate,data.zCord)){
           //Trigger overdose page.
             this.deviceTriggeredEmergency = true;
             console.log('device emergency triggered is true');
-            this.navCtrl.setRoot('emergencyrequest',{
-              'deviceTriggeredEmergency': this.deviceTriggeredEmergency
-            });
+            this.navCtrl.setRoot('emergencyrequest');
           }
         }
       }

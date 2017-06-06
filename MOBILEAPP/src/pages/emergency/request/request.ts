@@ -28,9 +28,7 @@ export class EmergencyRequest {
     this.emergencyUserProc.stopEmergencyProc().subscribe(res=>{
       let deviceTriggeredEmergency = this.navParam.get('deviceTriggeredEmergency');
       if(deviceTriggeredEmergency){
-        this.navCtrl.setRoot('home').then(res=>{
-          deviceTriggeredEmergency = false;
-        });
+        this.navCtrl.setRoot('home');
       }else {
         this.navCtrl.setRoot('home');
       }

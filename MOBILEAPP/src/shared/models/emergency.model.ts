@@ -21,6 +21,7 @@ export class Emergency{
   public started_at: string;
   public ended_at: string;
   public distance: number;
+  public date: any;
 
 }
 

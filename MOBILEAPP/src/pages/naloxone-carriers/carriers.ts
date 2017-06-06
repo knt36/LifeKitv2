@@ -1,6 +1,5 @@
 import {Component, Input} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {CarrierSettingsModel} from '../shared/models/carrier-settings/carrier-settings.model';
 import {Geolocation, Dialogs} from "ionic-native";
 import {EmergencyService} from "../../shared/services/emergency.service";
 import {Emergency} from "../../shared/models/emergency.model";
@@ -60,7 +59,12 @@ export class Carriers {
     Geolocation.getCurrentPosition().then(resp=>{
       console.log('reporting for duty');
       this.emergencyService.reportOnDuty(resp.coords.latitude,resp.coords.longitude).subscribe((res:Array<Emergency>)=>{
+        for(let data of res){
+          data.date = new Date(data.started_at);
+        }
+
         this.emergencies = res;
+
 
         //check if there are new emergencys, if there are, then send a notification to the phone
       });

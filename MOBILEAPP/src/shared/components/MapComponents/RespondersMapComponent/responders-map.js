@@ -42,7 +42,7 @@ var RespondersMap = (function () {
                     var latlng = new google_maps_1.LatLng(responder.last_lat, responder.last_lng);
                     var marker = {
                         position: latlng,
-                        icon: "http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-dot.png"
+                        icon: "https://www.google.com/intl/en_us/mapfiles/ms/icons/hospitals.png"
                     };
                     _this.responderMarkers.push(map.addMarker(marker));
                 });

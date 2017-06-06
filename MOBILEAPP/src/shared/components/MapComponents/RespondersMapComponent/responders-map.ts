@@ -50,7 +50,7 @@ export class RespondersMap {
           let latlng = new LatLng(responder.last_lat,responder.last_lng);
           let marker:MarkerOptions={
             position: latlng,
-            icon: "http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-dot.png"
+            icon: "https://www.google.com/intl/en_us/mapfiles/ms/icons/hospitals.png"
           };
           this.responderMarkers.push(map.addMarker(marker));
         });

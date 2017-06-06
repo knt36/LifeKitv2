@@ -60,7 +60,8 @@ export class NaloxoneMap {
           places.forEach(p=>{
             let coord:LatLng = new LatLng(p.geometry.location.lat,p.geometry.location.lng);
             let markerOptions: MarkerOptions = {
-              position: coord
+              position: coord,
+              icon: "https://www.google.com/intl/en_us/mapfiles/ms/icons/pharmacy-us.png"
             };
             map.addMarker(markerOptions);
           });

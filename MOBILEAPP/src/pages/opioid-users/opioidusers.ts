@@ -66,9 +66,13 @@ export class OpioidUsers {
 
 
   open(url){
-    this.navCtrl.setRoot(url);
+    this.navCtrl.push(url);
   }
 
+  setRoot(url){
+    this.navCtrl.setRoot(url);
+
+  }
   ngAfterViewInit() {
     this.lineCanvas = document.getElementById('lineCanvas');
     this.loadChart();

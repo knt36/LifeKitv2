@@ -10,6 +10,7 @@ import {UserSettingsService} from "../../../shared/services/user-settings.servic
 import {Emergency} from "../../../shared/models/emergency.model";
 import {Comment} from "../comment/comment";
 import {EndScreen} from "../endscreen/endscreen";
+import {Einstruction} from "../instruction/instruction";
 @Component({
   selector: 'e-locator',
   templateUrl: 'elocator.html'
@@ -41,8 +42,22 @@ export class Elocator {
   // toDO: get timer from server?
 
   public static GPS_OPTIONS: GeolocationOptions = {maximumAge: 3000, timeout: 10000, enableHighAccuracy: true};
-  constructor(public modal: ModalController, public params:NavParams,public googlePlaces: GooglePlaces, public navCtrl: NavController, public alertCtrl: AlertController) {
+  constructor(public emergencyService: EmergencyService, public modal: ModalController, public params:NavParams,public googlePlaces: GooglePlaces, public navCtrl: NavController, public alertCtrl: AlertController) {
     this.emergency = params.get('Emergency');
+    var watchEmergency = this.emergencyService.selectedEmergencyOngoing.subscribe(res=>{
+      if(!res){
+        //emergency is not ongoing anymore
+        watchEmergency.unsubscribe();
+        alert("The emergency ended...");
+        this.emergencyService.cancelAssistEmergency(this.emergency.emergencyid).subscribe(res=>{
+          console.log(res);
+        },error=>{
+          console.log(error);
+        });
+        this.navCtrl.popToRoot();
+      }
+    });
+
     Geolocation.getCurrentPosition(Elocator.GPS_OPTIONS).then(res => {
       var geoposition: Geoposition = res;
 
@@ -108,7 +123,12 @@ export class Elocator {
       buttons: [{
         text: 'Confirm',
         handler: () => {
-          //Nofunction in database to say you are not coming anymore....
+          console.log("About to cancel emergency");
+          this.emergencyService.cancelAssistEmergency(this.emergency.emergencyid).subscribe(res=>{
+            console.log(res);
+          },error=>{
+            console.log(error);
+          });
           this.navCtrl.popToRoot();
         }
       }, {
@@ -126,6 +146,13 @@ export class Elocator {
     modal.dismiss(res=>{
     }).then(()=>{
       this.navCtrl.setRoot('home');
+    });
+    modal.present();
+  }
+
+  stageClosedToPatient(){
+    let modal = this.modal.create(Einstruction,{
+
     });
     modal.present();
   }

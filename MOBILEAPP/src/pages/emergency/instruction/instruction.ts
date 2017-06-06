@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {NavController} from 'ionic-angular';
 
 @Component({
@@ -7,9 +7,7 @@ import {NavController} from 'ionic-angular';
 })
 
 export class Einstruction {
-
-  // toDO: get timer from server?
-  etimer = 123;
+  @Input() etimer = 123;
 
   // toDo: get patient info from server
   patient = {

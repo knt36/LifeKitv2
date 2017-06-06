@@ -6,28 +6,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var Einstruction = (function () {
-    function Einstruction(navCtrl) {
+var Comment = (function () {
+    function Comment(er, params, navCtrl) {
+        this.er = er;
+        this.params = params;
         this.navCtrl = navCtrl;
-        this.etimer = 123;
-        // toDo: get patient info from server
-        this.patient = {
-            name: 'Micheal Lexon',
-            info: 'Non Alergy'
-        };
+        this.comment = "";
+        this.emergencyId = params.get('emergencyId');
     }
-    Einstruction.prototype.endEmergency = function () {
-        this.navCtrl.setRoot('endscreen');
+    Comment.prototype.finish = function () {
+        var _this = this;
+        //send the comment
+        this.er.commentEmergency(this.emergencyId, this.comment).subscribe(function (res) {
+            alert("Thanks for commenting!");
+            _this.navCtrl.popToRoot();
+        });
     };
-    __decorate([
-        core_1.Input()
-    ], Einstruction.prototype, "etimer", void 0);
-    Einstruction = __decorate([
+    Comment.prototype.cancel = function () {
+        this.navCtrl.pop();
+    };
+    Comment = __decorate([
         core_1.Component({
-            selector: 'e-instruction',
-            templateUrl: 'instruction.html'
+            templateUrl: 'comment.html'
         })
-    ], Einstruction);
-    return Einstruction;
+    ], Comment);
+    return Comment;
 }());
-exports.Einstruction = Einstruction;
+exports.Comment = Comment;

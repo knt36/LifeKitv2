@@ -22,6 +22,8 @@ import {Geolocation, Geoposition} from "ionic-native";
 export class EmergencyService {
   public static ACCEPT_EMERGENCY:number = 1;
   public hostingEmergencyId;
+  public selectedEmergency: Emergency = null;
+  public selectedEmergencyOngoing:ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
   constructor (
     private apiService: ApiService,
@@ -31,30 +33,61 @@ export class EmergencyService {
 
   //Assistance
 
-
+  isAssisting():boolean{
+    if(this.selectedEmergency){
+      return(true);
+    }else{
+      return(false);
+    }
+  }
   commentEmergency(emergencyId,comment:string):Observable<any>{
     let path = `/assist/comment?accesstoken=${this.jwtService.getAccessToken()}`;
     let body: URLSearchParams = new URLSearchParams();
     body.append('emergencyid',emergencyId);
     body.append('comment',comment);
-    return(this.apiService.put(path,body));
+    return(this.apiService.put(path,body).map(res=>{
+      return(res);
+    },error=>{
+      alert(error);
+    }));
   }
-  assistEmergency(emergencyId, response: number):Observable<any>{
+  assistEmergency(emergency:Emergency, response: number):Observable<any>{
+    let path = `/assist/create?accesstoken=${this.jwtService.getAccessToken()}`;
+    let body: URLSearchParams = new URLSearchParams();
+    body.append('emergencyid', emergency.emergencyid + "");
+    body.append('response', response + "");
+    return(this.apiService.post(path,body).map(res=>{
+      this.selectedEmergencyOngoing.next(true);
+      this.selectedEmergency = emergency;
+      return(res);
+    }, error=>{
+      alert(error);
+    }));
+  }
+
+  cancelAssistEmergency(emergencyId):Observable<any>{
     let path = `/assist/create?accesstoken=${this.jwtService.getAccessToken()}`;
     let body: URLSearchParams = new URLSearchParams();
     body.append('emergencyid', emergencyId);
-    body.append('response', response + "");
-    return(this.apiService.post(path,body));
+    body.append('response', 0 + "");
+    return(this.apiService.post(path,body).map(res=>{
+      this.selectedEmergency = null;
+      return(res);
+    }, error=>{
+      alert(error);
+    }));
   }
 
   //untested khoi
   getEmergencyStatus(emergencyId):Observable<Array<ResponderCordinate>>{
-    let path = `/emergency/status?accesstoken=${this.jwtService.getAccessToken()}&${emergencyId}`;
+    let path = `/emergency/status?accesstoken=${this.jwtService.getAccessToken()}&emergencyid=${emergencyId}`;
     return(this.apiService.get(path).map(res=>{
       var responderList:Array<ResponderCordinate> = new Array<ResponderCordinate>();
       responderList = res.result;
       console.log(responderList);
       return(responderList);
+    }, error=>{
+      alert(error);
     }));
   }
 
@@ -67,6 +100,8 @@ export class EmergencyService {
         this.hostingEmergencyId = null;
         //for now return res
         return(res);
+      },error=>{
+        alert(error);
       }));
     }
   }
@@ -80,7 +115,9 @@ export class EmergencyService {
     body.set ('address',JSON.stringify(address));
     return(this.apiService.post(path,body).map(res=>{
       this.hostingEmergencyId = res.result;
-      return(res.result);}));
+      return(res.result);}, error=>{
+      alert(error);
+    }));
   }
 
   startEmergency2(userName:string, geo:Geoposition):Observable<number>{
@@ -92,7 +129,9 @@ export class EmergencyService {
     body.set ('address',"");
     return(this.apiService.post(path,body).map(res=>{
       this.hostingEmergencyId = res.result;
-      return(res.result);}));
+      return(res.result);}, error=>{
+      alert(error);
+    }));
   }
 
   updateCarrierLocation(lat:number, lng: number): Observable<Emergency> {
@@ -100,7 +139,11 @@ export class EmergencyService {
     let body = new URLSearchParams();
     body.set('lat',lat.toString());
     body.set('lng',lng.toString());
-    return this.apiService.post(path,body);
+    return this.apiService.post(path,body).map(res=>{
+      return(res);
+    }, error=>{
+      alert(error);
+    });
   }
 
   reportOnDuty(lat:number,lng:number):Observable<Array<Emergency>>{
@@ -111,10 +154,32 @@ export class EmergencyService {
       array.forEach(function(res:Emergency){
         var temp:Emergency;
         temp = res;
-        temp.emergency_address = JSON.parse(res.emergency_address + "");
+        try{
+          temp.emergency_address = JSON.parse(res.emergency_address + "");
+        }catch(e){
+
+          temp.emergency_address = null;
+        }
         emergencies.push(res);
       });
+
+      if(this.isAssisting()){
+        var isOngoing = false;
+        emergencies.forEach(e=>{
+          if(e.emergencyid == this.selectedEmergency.emergencyid){
+            //the emergency is still ongoing. otherwise it is not ongoing...
+            isOngoing= true;
+          }
+        });
+
+        if(!isOngoing){
+          //notifies that it is no longer ongoing
+          this.selectedEmergencyOngoing.next(false);
+        }
+      }
       return(emergencies);
+      }, error=>{
+        alert(error);
       }
     );
   }

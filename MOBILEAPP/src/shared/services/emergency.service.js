@@ -10,40 +10,77 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var ReplaySubject_1 = require('rxjs/ReplaySubject');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
-var EmergenecyService = (function () {
-    function EmergenecyService(apiService, http, jwtService) {
+var EmergencyService = (function () {
+    function EmergencyService(apiService, http, jwtService) {
         this.apiService = apiService;
         this.http = http;
         this.jwtService = jwtService;
+        this.selectedEmergency = null;
+        this.selectedEmergencyOngoing = new ReplaySubject_1.ReplaySubject(1);
     }
     //Assistance
-    EmergenecyService.prototype.commentEmergency = function (emergencyId, comment) {
+    EmergencyService.prototype.isAssisting = function () {
+        if (this.selectedEmergency) {
+            return (true);
+        }
+        else {
+            return (false);
+        }
+    };
+    EmergencyService.prototype.commentEmergency = function (emergencyId, comment) {
         var path = "/assist/comment?accesstoken=" + this.jwtService.getAccessToken();
         var body = new http_1.URLSearchParams();
         body.append('emergencyid', emergencyId);
         body.append('comment', comment);
-        return (this.apiService.put(path, body));
+        return (this.apiService.put(path, body).map(function (res) {
+            return (res);
+        }, function (error) {
+            alert(error);
+        }));
     };
-    EmergenecyService.prototype.assistEmergency = function (emergencyId, response) {
+    EmergencyService.prototype.assistEmergency = function (emergency, response) {
+        var _this = this;
+        var path = "/assist/create?accesstoken=" + this.jwtService.getAccessToken();
+        var body = new http_1.URLSearchParams();
+        body.append('emergencyid', emergency.emergencyid + "");
+        body.append('response', response + "");
+        return (this.apiService.post(path, body).map(function (res) {
+            _this.selectedEmergencyOngoing.next(true);
+            _this.selectedEmergency = emergency;
+            return (res);
+        }, function (error) {
+            alert(error);
+        }));
+    };
+    EmergencyService.prototype.cancelAssistEmergency = function (emergencyId) {
+        var _this = this;
         var path = "/assist/create?accesstoken=" + this.jwtService.getAccessToken();
         var body = new http_1.URLSearchParams();
         body.append('emergencyid', emergencyId);
-        body.append('response', response + "");
-        return (this.apiService.post(path, body));
+        body.append('response', 0 + "");
+        return (this.apiService.post(path, body).map(function (res) {
+            _this.selectedEmergency = null;
+            return (res);
+        }, function (error) {
+            alert(error);
+        }));
     };
     //untested khoi
-    EmergenecyService.prototype.getEmergencyStatus = function (emergencyId) {
-        var path = "/emergency/status?accesstoken=" + this.jwtService.getAccessToken() + "&" + emergencyId;
+    EmergencyService.prototype.getEmergencyStatus = function (emergencyId) {
+        var path = "/emergency/status?accesstoken=" + this.jwtService.getAccessToken() + "&emergencyid=" + emergencyId;
         return (this.apiService.get(path).map(function (res) {
             var responderList = new Array();
             responderList = res.result;
             console.log(responderList);
             return (responderList);
+        }, function (error) {
+            alert(error);
         }));
     };
-    EmergenecyService.prototype.endEmergency = function () {
+    EmergencyService.prototype.endEmergency = function () {
         var _this = this;
         if (this.hostingEmergencyId) {
             var path = "/emergency/end?accesstoken=" + this.jwtService.getAccessToken();
@@ -53,10 +90,12 @@ var EmergenecyService = (function () {
                 _this.hostingEmergencyId = null;
                 //for now return res
                 return (res);
+            }, function (error) {
+                alert(error);
             }));
         }
     };
-    EmergenecyService.prototype.startEmergency = function (userName, address, geo) {
+    EmergencyService.prototype.startEmergency = function (userName, address, geo) {
         var _this = this;
         var path = "/emergency/start?accesstoken=" + this.jwtService.getAccessToken();
         var body = new http_1.URLSearchParams();
@@ -67,16 +106,38 @@ var EmergenecyService = (function () {
         return (this.apiService.post(path, body).map(function (res) {
             _this.hostingEmergencyId = res.result;
             return (res.result);
+        }, function (error) {
+            alert(error);
         }));
     };
-    EmergenecyService.prototype.updateCarrierLocation = function (lat, lng) {
+    EmergencyService.prototype.startEmergency2 = function (userName, geo) {
+        var _this = this;
+        var path = "/emergency/start?accesstoken=" + this.jwtService.getAccessToken();
+        var body = new http_1.URLSearchParams();
+        body.set('lat', geo.coords.latitude.valueOf() + "");
+        body.set('lng', geo.coords.longitude.valueOf() + "");
+        body.set('user_nickname', userName);
+        body.set('address', "");
+        return (this.apiService.post(path, body).map(function (res) {
+            _this.hostingEmergencyId = res.result;
+            return (res.result);
+        }, function (error) {
+            alert(error);
+        }));
+    };
+    EmergencyService.prototype.updateCarrierLocation = function (lat, lng) {
         var path = "/update/location?accesstoken=" + this.jwtService.getAccessToken();
         var body = new http_1.URLSearchParams();
         body.set('lat', lat.toString());
         body.set('lng', lng.toString());
-        return this.apiService.post(path, body);
+        return this.apiService.post(path, body).map(function (res) {
+            return (res);
+        }, function (error) {
+            alert(error);
+        });
     };
-    EmergenecyService.prototype.reportOnDuty = function (lat, lng) {
+    EmergencyService.prototype.reportOnDuty = function (lat, lng) {
+        var _this = this;
         var path = "/emergency/onduty?accesstoken=" + this.jwtService.getAccessToken() + "&lat=" + lat + "&lng=" + lng;
         return this.apiService.get(path).map(function (res) {
             var emergencies = new Array();
@@ -84,16 +145,36 @@ var EmergenecyService = (function () {
             array.forEach(function (res) {
                 var temp;
                 temp = res;
-                temp.emergency_address = JSON.parse(res.emergency_address + "");
+                try {
+                    temp.emergency_address = JSON.parse(res.emergency_address + "");
+                }
+                catch (e) {
+                    temp.emergency_address = null;
+                }
                 emergencies.push(res);
             });
+            if (_this.isAssisting()) {
+                var isOngoing = false;
+                emergencies.forEach(function (e) {
+                    if (e.emergencyid == _this.selectedEmergency.emergencyid) {
+                        //the emergency is still ongoing. otherwise it is not ongoing...
+                        isOngoing = true;
+                    }
+                });
+                if (!isOngoing) {
+                    //notifies that it is no longer ongoing
+                    _this.selectedEmergencyOngoing.next(false);
+                }
+            }
             return (emergencies);
+        }, function (error) {
+            alert(error);
         });
     };
-    EmergenecyService.ACCEPT_EMERGENCY = 1;
-    EmergenecyService = __decorate([
+    EmergencyService.ACCEPT_EMERGENCY = 1;
+    EmergencyService = __decorate([
         core_1.Injectable()
-    ], EmergenecyService);
-    return EmergenecyService;
+    ], EmergencyService);
+    return EmergencyService;
 }());
-exports.EmergenecyService = EmergenecyService;
+exports.EmergencyService = EmergencyService;

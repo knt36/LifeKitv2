@@ -37,7 +37,7 @@ export class Carriers {
   }
 
   acceptTask(emergency){
-    this.em.assistEmergency(emergency.emergencyid,EmergencyService.ACCEPT_EMERGENCY).subscribe(res=>{
+    this.em.assistEmergency(emergency,EmergencyService.ACCEPT_EMERGENCY).subscribe(res=>{
       //the emegrency has been accepted
       Dialogs.alert("Emergency Accepted!");
       this.navCtrl.push('elocator',{
@@ -60,9 +60,9 @@ export class Carriers {
     Geolocation.getCurrentPosition().then(resp=>{
       console.log('reporting for duty');
       this.emergencyService.reportOnDuty(resp.coords.latitude,resp.coords.longitude).subscribe((res:Array<Emergency>)=>{
-        console.log(res);
-        console.log('address is: ' + res[0].emergency_address);
         this.emergencies = res;
+
+        //check if there are new emergencys, if there are, then send a notification to the phone
       });
     });
   }

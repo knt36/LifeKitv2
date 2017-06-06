@@ -8,10 +8,14 @@ export class CountDownProc{
   private timer:Observable<any> = Observable.timer(0,1000);
   private timerOb:any;
   public countingDownTime:number = CountDownProc.TIME_LIMIT;
-  public finishedCountDown: Promise<any>;
+  public triggeredStopTimer:boolean = false;
 
+  public stopTimerBeforeEnd(){
+    this.triggeredStopTimer = true;
+  }
   //Start Timer returns the promise when the timer is up for it to be resolved.
   public startTimerTillEnd():Promise<any>{
+    this.triggeredStopTimer = false;
     return(new Promise((resolve, reject)=>{
       this.timerOb = this.timer.subscribe(t=>{
         this.countingDownTime = this.countingDownTime - 1;
@@ -21,6 +25,8 @@ export class CountDownProc{
             //action when the timer has when down ....
             resolve();
           }
+        }else if(this.triggeredStopTimer){
+          reject();
         }
       });
     }));

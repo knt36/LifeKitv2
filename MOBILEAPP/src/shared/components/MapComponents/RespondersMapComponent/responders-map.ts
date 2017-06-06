@@ -1,7 +1,5 @@
 import {Component, ViewChild, ElementRef, Input} from "@angular/core";
-import { DeviceService } from "../../shared";
 import { Geoposition, Geolocation } from "ionic-native";
-import { SimpleMarker } from "../../shared/models";
 import {
   GoogleMaps,
   GoogleMap,
@@ -51,7 +49,8 @@ export class RespondersMap {
         respondersList.forEach(responder=>{
           let latlng = new LatLng(responder.last_lat,responder.last_lng);
           let marker:MarkerOptions={
-            position: latlng
+            position: latlng,
+            icon: 'assets/medkit.png'
           };
           this.responderMarkers.push(map.addMarker(marker));
         });

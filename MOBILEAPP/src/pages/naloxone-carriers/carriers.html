@@ -1,4 +1,5 @@
-<div class="scroll">
+<div class="scroll" padding-top id="patient-list">
+
   <ion-title text-center>Overdosing Patients!</ion-title>
   <ion-list>
     <ion-item  ion-item *ngFor="let e of this.emergencies">
@@ -16,7 +17,7 @@
             <p *ngIf="!e.emergency_address">
               No frequent address...
             </p>
-            <p *ngIf="e.started_at">{{e?.started_at}}</p>
+            <p *ngIf="e.started_at">{{e?.date | date:'mediumTime'}}</p>
           </ion-col>
           <ion-col col-6>
             <button ion-button class="button-style" clear large [color]='light' (click)="this.acceptTask(e)">Assist!</button>

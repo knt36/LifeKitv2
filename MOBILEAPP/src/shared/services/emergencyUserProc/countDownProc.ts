@@ -26,6 +26,7 @@ export class CountDownProc{
             resolve();
           }
         }else if(this.triggeredStopTimer){
+          this.timerOb.unsubscribe();
           reject();
         }
       });

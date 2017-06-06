@@ -62,7 +62,6 @@ export class Carriers {
       this.emergencyService.reportOnDuty(resp.coords.latitude,resp.coords.longitude).subscribe((res:Array<Emergency>)=>{
         this.emergencies = res;
 
-        //check if there are new emergencys, if there are, then send a notification to the phone
       });
     });
   }

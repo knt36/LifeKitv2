@@ -5,20 +5,7 @@
 </ion-header>
 <ion-content>
 
-  <div>
 
-    <!-- timer -->
-    <ion-row>
-      <ion-col text-center>
-        <div >
-          <h1 class="alert-header">{{this.etimer}}</h1>
-          <ion-label class="label-text-color">estimate seconds</ion-label>
-        </div>
-      </ion-col>
-      <ion-col>
-        <p class="indicate-text">left to save patient</p>
-      </ion-col>
-    </ion-row>
 
     <!-- instruction -->
     <ion-card class="instruction-card yellow-background">
@@ -35,22 +22,7 @@
 
     </ion-card>
 
-    <!-- patient information -->
-    <div class="side-margin-div">
-      <ion-list-header class="title-text">
-        Patient Information:
-      </ion-list-header>
-      <div>
-        <p>{{this.patient.info}}</p>
-      </div>
-    </div>
 
-    <!--  End treatment -->
-    <p align = "center">
-      <button (click)="endEmergency()" outline ion-button color="teal" round>Finish</button>
-    </p>
-
-  </div>
 
 
 </ion-content>

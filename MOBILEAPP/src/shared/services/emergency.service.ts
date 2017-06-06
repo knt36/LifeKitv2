@@ -24,6 +24,7 @@ export class EmergencyService {
   public hostingEmergencyId;
   public selectedEmergency: Emergency = null;
   public selectedEmergencyOngoing:ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  public selectedEmergencyUpdate:ReplaySubject<Emergency> = new ReplaySubject<Emergency>(1);
 
   constructor (
     private apiService: ApiService,
@@ -103,6 +104,10 @@ export class EmergencyService {
       },error=>{
         alert(error);
       }));
+    }else{
+      return(new Observable(ob=>{
+        ob.next(false);
+      }));
     }
   }
 
@@ -165,16 +170,24 @@ export class EmergencyService {
 
       if(this.isAssisting()){
         var isOngoing = false;
+        var theUpdatedEmergency = null;
         emergencies.forEach(e=>{
           if(e.emergencyid == this.selectedEmergency.emergencyid){
             //the emergency is still ongoing. otherwise it is not ongoing...
             isOngoing= true;
+            theUpdatedEmergency=e;
           }
         });
 
         if(!isOngoing){
           //notifies that it is no longer ongoing
           this.selectedEmergencyOngoing.next(false);
+        }else{
+          //if it is ongoing, then update the locatoin to see if the preson got close to the perosn
+          if(theUpdatedEmergency){
+            console.log(theUpdatedEmergency);
+            this.selectedEmergencyUpdate.next(theUpdatedEmergency);
+          }
         }
       }
       return(emergencies);
@@ -182,6 +195,21 @@ export class EmergencyService {
         alert(error);
       }
     );
+  }
+
+  awaitCloseToPatient():Promise<any>{
+    return(new Promise((resolve,reject)=>{
+      var unsubscriber = this.selectedEmergencyUpdate.subscribe(e=>{
+        let DISTANCE_CLOSE = 20;
+        if(e.distance<=DISTANCE_CLOSE){
+          unsubscriber.unsubscribe();
+          resolve();
+        }
+      },error=>{
+        unsubscriber.unsubscribe();
+        reject();
+      });
+    }));
   }
 
 }

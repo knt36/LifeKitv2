@@ -26,8 +26,8 @@ export class EmergencyUserProc {
 }
   public startEmergencyProc(){
     //this.flashLightProc.startFlashing();
-    //this.vibrateProc.startVibrate();
-    //this.beepingProc.startBeepingProc();
+    this.vibrateProc.startVibrate();
+    this.beepingProc.startBeepingProc();
     this.countDownProc.startTimerTillEnd().then(()=>{
       console.log('count down reached!');
       Geolocation.getCurrentPosition().then(geo=>{
@@ -45,8 +45,12 @@ export class EmergencyUserProc {
   }
 
   public stopEmergencyProc():Observable<any>{
-    this.countDownProc.stopTimerBeforeEnd();
-    this.flashLightProc.stopFlashing();
+    try{
+      this.countDownProc.stopTimerBeforeEnd();
+    }catch(e){
+      console.log(e);
+    }
+    //this.flashLightProc.stopFlashing();
     this.vibrateProc.stopVibrate();
     this.beepingProc.stopBeepingProc();
     if(this.smsAllEmergencyContactsProc.isContacted){

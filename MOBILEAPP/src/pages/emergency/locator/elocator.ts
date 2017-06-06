@@ -44,6 +44,13 @@ export class Elocator {
   public static GPS_OPTIONS: GeolocationOptions = {maximumAge: 3000, timeout: 10000, enableHighAccuracy: true};
   constructor(public emergencyService: EmergencyService, public modal: ModalController, public params:NavParams,public googlePlaces: GooglePlaces, public navCtrl: NavController, public alertCtrl: AlertController) {
     this.emergency = params.get('Emergency');
+
+    emergencyService.awaitCloseToPatient().then(res=>{
+      //you are now close to the patient NOW WHAT NIGGAR
+      console.log("You are close....")
+      this.stageClosedToPatient();
+    });
+
     var watchEmergency = this.emergencyService.selectedEmergencyOngoing.subscribe(res=>{
       if(!res){
         //emergency is not ongoing anymore

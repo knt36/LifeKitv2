@@ -41,11 +41,14 @@ export class EmergencyService {
       return(false);
     }
   }
+
+
+
   commentEmergency(emergencyId,comment:string):Observable<any>{
     let path = `/assist/comment?accesstoken=${this.jwtService.getAccessToken()}`;
-    let body: URLSearchParams = new URLSearchParams();
-    body.append('emergencyid',emergencyId);
-    body.append('comment',comment);
+    let body = new URLSearchParams();
+    body.set('emergencyid',emergencyId);
+    body.set('comment',comment);
     return(this.apiService.put(path,body).map(res=>{
       return(res);
     },error=>{
@@ -202,11 +205,17 @@ export class EmergencyService {
       var unsubscriber = this.selectedEmergencyUpdate.subscribe(e=>{
         let DISTANCE_CLOSE = 20;
         if(e.distance<=DISTANCE_CLOSE){
-          unsubscriber.unsubscribe();
+          if(unsubscriber){
+            unsubscriber.unsubscribe();
+          }
           resolve();
+
+
         }
       },error=>{
-        unsubscriber.unsubscribe();
+        if(unsubscriber){
+          unsubscriber.unsubscribe();
+        }
         reject();
       });
     }));

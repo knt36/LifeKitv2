@@ -16,12 +16,17 @@ export class EndScreen {
 
   finish(){
     //send the comment
-    var send = {
 
-    };
     this.er.commentEmergency(this.emergencyId,JSON.stringify(this.emergencyComment)).subscribe(res=>{
-      alert("Thanks for commenting!");
-      this.navCtrl.popToRoot();
+      this.er.cancelAssistEmergency(this.er.selectedEmergency.emergencyid).subscribe(res=>{
+        alert("Thanks for commenting!");
+        this.navCtrl.setRoot("home");
+      });
+    },error=>{
+      this.er.cancelAssistEmergency(this.er.selectedEmergency.emergencyid).subscribe(res=>{
+        alert("Thanks for commenting!");
+        this.navCtrl.setRoot("home");
+      });
     });
   }
 

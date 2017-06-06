@@ -20,6 +20,7 @@ export class Emergency{
   public emergency_address: Address;
   public started_at: string;
   public ended_at: string;
+  public distance: number;
 
 }
 

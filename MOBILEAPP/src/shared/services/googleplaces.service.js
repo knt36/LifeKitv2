@@ -35,17 +35,23 @@ var GooglePlaces = (function () {
                 var places = [];
                 var array = res.results;
                 var i = 0;
-                for (i = 0; i < array.length && i < numResults; i++) {
-                    _this.getGoogleDetailed(array[i].place_id + "").subscribe(function (res) {
-                        places.push(res);
-                        if (places.length == numResults) {
-                            observer.next(places);
-                        }
-                    });
-                }
+                _this.getGoogleDetailedHelper(i, places, array, numResults, observer);
             }, function (error) { console.log(error); });
         });
         return (ob);
+    };
+    GooglePlaces.prototype.getGoogleDetailedHelper = function (i, places, array, numResults, observer) {
+        var _this = this;
+        this.getGoogleDetailed(array[i].place_id + "").subscribe(function (res) {
+            places.push(res);
+            if (places.length == numResults) {
+                observer.next(places);
+            }
+            else {
+                i++;
+                _this.getGoogleDetailedHelper(i, places, array, numResults, observer);
+            }
+        });
     };
     GooglePlaces.prototype.getGoogleDetailed = function (placeId) {
         var url = 'https://maps.googleapis.com/maps/api/place/details/json';

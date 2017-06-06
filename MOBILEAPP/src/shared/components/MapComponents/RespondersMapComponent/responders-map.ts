@@ -46,11 +46,8 @@ export class RespondersMap {
   updateResponderMarkers(map:GoogleMap):Promise<any>{
     let promise = new Promise((resolve,reject)=>{
       this.es.getEmergencyStatus(this.emergencyId).subscribe(respondersList=>{
-        if(this.responderMarkers){
-          this.responderMarkers.forEach(marker=>{
-            marker.remove();
-          });
-        }
+        map.clear();
+
         respondersList.forEach(responder=>{
           let latlng = new LatLng(responder.last_lat,responder.last_lng);
           let marker:MarkerOptions={

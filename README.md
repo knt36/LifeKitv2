@@ -6,7 +6,7 @@ A hybrid mobile app to help curb the increasing number of deaths from opioid ove
 
 Welcome Screen           |  Main Menu
 :-------------------------:|:-------------------------:
-![Dashboard image] (/readmeImages/1 (1).png?raw=true "LifeKit Dashboard");  |  ![Dashboard image] (/readmeImages/1 (1).png?raw=true "LifeKit Dashboard");
+![Dashboard image] (/readmeImages/1\ (1).png?raw=true "LifeKit Dashboard");  |  ![Dashboard image] (/readmeImages/1\ (1).png?raw=true "LifeKit Dashboard");
 
 Sign Up           |  Choose Type of User
 :-------------------------:|:-------------------------:

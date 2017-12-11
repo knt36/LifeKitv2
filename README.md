@@ -10,8 +10,6 @@ A hybrid mobile app to help curb the increasing number of deaths from opioid ove
   <img width="20%" src="/readmeImages/1 (4).png">
   <img width="20%" src="/readmeImages/1 (5).png">
   <img width="20%" src="/readmeImages/1 (6).png">
-  <img width="20%" src="/readmeImages/1 (7).png">
-  <img width="20%" src="/readmeImages/1 (8).png">
   <img width="20%" src="/readmeImages/1 (9).png">
   <img width="20%" src="/readmeImages/1 (10).png">
   <img width="20%" src="/readmeImages/1 (11).png">

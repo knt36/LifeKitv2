@@ -2,7 +2,7 @@
 LifeKit : Locate.Naloxone.Now
 =============================
 
-A hybrid mobile app to help curb the increasing number of deaths from opioid overdose.![
+A hybrid mobile app to help curb the increasing number of deaths from opioid overdose! Provides hardare monitoring of potential overdosing patients and geo-position during overdosing emergencies to emergency responders in the form of text messaging and mobile app notification. Additional features include naloxone provider locator and overdose risk assessment for patients.
 <p align="">
   <img width="20%" src="/readmeImages/1 (1).png">
   <img width="20%" src="/readmeImages/1 (2).png">

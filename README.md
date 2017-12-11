@@ -3,30 +3,33 @@ LifeKit : Locate.Naloxone.Now
 =============================
 
 A hybrid mobile app to help curb the increasing number of deaths from opioid overdose.![
-
-Welcome Screen           |  Main Menu
-:-------------------------:|:-------------------------:
-![Dashboard image] (/readmeImages/1\ (1).png?raw=true "LifeKit Dashboard");  |  ![Dashboard image] (/readmeImages/1\ (1).png?raw=true "LifeKit Dashboard");
-
-Sign Up           |  Choose Type of User
-:-------------------------:|:-------------------------:
-![Dashboard image] (/README/1\ (3).jpg?raw=true "LifeKit Dashboard");  |  ![Dashboard image] (/README/1\ (4).jpg?raw=true "LifeKit Dashboard");
-
-Emergency Contact Manager           |  Overdose Risk Assessment Tool
-:-------------------------:|:-------------------------:
-![Dashboard image] (/README/1\ (41).jpg?raw=true "LifeKit Dashboard");  |  ![Dashboard image] (/README/1\ (27).jpg?raw=true "LifeKit Dashboard");
-
-Bystander Emergency Alert + Overdose Detection           |  Emergency Contact Text Notification with Location
-:-------------------------:|:-------------------------:
-![Dashboard image] (/README/1\ (31).jpg?raw=true "LifeKit Dashboard");  |  ![Dashboard image] (/README/1\ (23).jpg?raw=true "LifeKit Dashboard");
-
-Pin Point Patient Location with Google Maps           |  Naloxone Carrier Locator
-:-------------------------:|:-------------------------:
-![Dashboard image] (/README/1\ (33).jpg?raw=true "LifeKit Dashboard");  |  ![Dashboard image] (/README/1\ (36).jpg?raw=true "LifeKit Dashboard");
-
-Auto Overdose Detection with Accelerometer           
-:-------------------------:
-![Dashboard image] (/README/1\ (40).jpg?raw=true "LifeKit Dashboard"); 
+<p align="">
+  <img width="20%" src="/readmeImages/1 (1).png">
+  <img width="20%" src="/readmeImages/1 (2).png">
+  <img width="20%" src="/readmeImages/1 (3).png">
+  <img width="20%" src="/readmeImages/1 (4).png">
+  <img width="20%" src="/readmeImages/1 (5).png">
+  <img width="20%" src="/readmeImages/1 (6).png">
+  <img width="20%" src="/readmeImages/1 (7).png">
+  <img width="20%" src="/readmeImages/1 (8).png">
+  <img width="20%" src="/readmeImages/1 (9).png">
+  <img width="20%" src="/readmeImages/1 (10).png">
+  <img width="20%" src="/readmeImages/1 (11).png">
+  <img width="20%" src="/readmeImages/1 (12).png">
+  <img width="20%" src="/readmeImages/1 (13).png">
+  <img width="20%" src="/readmeImages/1 (14).png">
+  <img width="20%" src="/readmeImages/1 (15).png">
+  <img width="20%" src="/readmeImages/1 (16).png">
+  <img width="20%" src="/readmeImages/1 (17).png">
+  <img width="20%" src="/readmeImages/1 (18).png">
+  <img width="20%" src="/readmeImages/1 (19).png">
+  <img width="20%" src="/readmeImages/1 (20).png">
+  <img width="20%" src="/readmeImages/1 (21).png">
+  <img width="20%" src="/readmeImages/1 (22).png">
+  <img width="20%" src="/readmeImages/1 (23).png">
+  <img width="20%" src="/readmeImages/1 (24).png">
+  <img width="20%" src="/readmeImages/1 (24).png">
+</p>
 
 Features
 --------
